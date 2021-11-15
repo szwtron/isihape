@@ -9,7 +9,7 @@ public class PaymentsViewModel extends ViewModel {
 
     public PaymentsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is patients fragment");
+        mText.setValue("This is payments fragment");
     }
 
     public LiveData<String> getText() {

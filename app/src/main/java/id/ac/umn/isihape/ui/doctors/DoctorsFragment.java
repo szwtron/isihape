@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import id.ac.umn.isihape.R;
 import id.ac.umn.isihape.databinding.FragmentHomeBinding;
 
 
@@ -25,16 +26,8 @@ public class DoctorsFragment extends Fragment {
         doctorsViewModel =
                 new ViewModelProvider(this).get(DoctorsViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View root = inflater.inflate(R.layout.doctors_slideshow, container, false);
 
-        final TextView textView = binding.textHome;
-        doctorsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
 

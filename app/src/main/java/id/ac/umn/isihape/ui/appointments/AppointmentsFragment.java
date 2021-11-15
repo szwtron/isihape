@@ -1,4 +1,4 @@
-package id.ac.umn.isihape.ui.slideshow;
+package id.ac.umn.isihape.ui.appointments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,24 +12,24 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import id.ac.umn.isihape.R;
-import id.ac.umn.isihape.databinding.FragmentSlideshowBinding;
 
-public class SlideshowFragment extends Fragment {
+import id.ac.umn.isihape.databinding.FragmentHomeBinding;
 
-    private SlideshowViewModel slideshowViewModel;
-    private FragmentSlideshowBinding binding;
+public class AppointmentsFragment extends Fragment {
+
+    private AppointmentsViewModel appointmentsViewModel;
+    private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        appointmentsViewModel =
+                new ViewModelProvider(this).get(AppointmentsViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        final TextView textView = binding.textHome;
+        appointmentsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

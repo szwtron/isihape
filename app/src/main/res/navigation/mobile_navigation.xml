@@ -12,14 +12,44 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="id.ac.umn.isihape.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_appointments"
+        android:name="id.ac.umn.isihape.ui.appointments.AppointmentsFragment"
+        android:label="Appointments"
+        tools:layout="@layout/fragment_appointments" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="id.ac.umn.isihape.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_doctors"
+        android:name="id.ac.umn.isihape.ui.doctors.DoctorsFragment"
+        android:label="Doctors"
+        tools:layout="@layout/doctors_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_lab"
+        android:name="id.ac.umn.isihape.ui.lab.LabFragment"
+        android:label="Pemeriksaan Lab"
+        tools:layout="@layout/doctors_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_patients"
+        android:name="id.ac.umn.isihape.ui.patients.PatientsFragment"
+        android:label="Patients"
+        tools:layout="@layout/doctors_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_payments"
+        android:name="id.ac.umn.isihape.ui.doctors.DoctorsFragment"
+        android:label="Payments"
+        tools:layout="@layout/doctors_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_help"
+        android:name="id.ac.umn.isihape.ui.doctors.DoctorsFragment"
+        android:label="Help"
+        tools:layout="@layout/doctors_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="id.ac.umn.isihape.ui.doctors.DoctorsFragment"
+        android:label="Logout"
+        tools:layout="@layout/doctors_slideshow" />
 </navigation>

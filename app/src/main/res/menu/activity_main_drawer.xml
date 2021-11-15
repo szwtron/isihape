@@ -9,12 +9,32 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_appointments"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:title="Appointments" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_doctors"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:title="Doctors" />
+        <item
+            android:id="@+id/nav_lab"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Lab" />
+        <item
+            android:id="@+id/nav_patients"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Patients" />
+        <item
+            android:id="@+id/nav_payments"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Payments" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="help" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="logout" />
     </group>
 </menu>

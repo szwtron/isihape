@@ -1,4 +1,4 @@
-package id.ac.umn.isihape.ui.gallery;
+package id.ac.umn.isihape.ui.lab;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,24 +12,24 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import id.ac.umn.isihape.R;
-import id.ac.umn.isihape.databinding.FragmentGalleryBinding;
+import id.ac.umn.isihape.databinding.FragmentHomeBinding;
+import id.ac.umn.isihape.ui.home.HomeViewModel;
 
-public class GalleryFragment extends Fragment {
+public class LabFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
-    private FragmentGalleryBinding binding;
+    private LabViewModel labViewModel;
+    private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
+        labViewModel =
+                new ViewModelProvider(this).get(LabViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        final TextView textView = binding.textHome;
+        labViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
@@ -43,4 +43,5 @@ public class GalleryFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 }

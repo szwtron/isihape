@@ -12,34 +12,24 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import id.ac.umn.isihape.R;
 import id.ac.umn.isihape.databinding.FragmentHomeBinding;
 import id.ac.umn.isihape.ui.patients.PatientsViewModel;
 
 public class PaymentsFragment extends Fragment {
     private PaymentsViewModel paymentsViewModel;
-    private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         paymentsViewModel =
                 new ViewModelProvider(this).get(PaymentsViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        final TextView textView = binding.textHome;
-        paymentsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        View root = inflater.inflate(R.layout.fragment_payments, container, false);
         return root;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 }

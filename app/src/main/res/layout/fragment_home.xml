@@ -4,19 +4,289 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.HomeFragment"
+    android:background="@color/bc_blue">
 
-    <TextView
-        android:id="@+id/text_home"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/text_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:text="Selamat Datang, \n Nama Lengkap."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@drawable/logo_isihape"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_home" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="395dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:text="Jadwal Konsultasi Anda"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+            <TableLayout
+                android:id="@+id/tableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+
+                <TableRow android:background="#5481f4">
+                    <TextView
+                        android:gravity="right"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="20dp"
+                        android:text="Tanggal"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:gravity="right"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="20dp"
+                        android:text="Dokter"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:gravity="right"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="20dp"
+                        android:text="Waktu"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:gravity="right"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="20dp"
+                        android:text="Test1"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:gravity="right"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="20dp"
+                        android:text="Test1"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="75dp"
+                        android:gravity="right"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="20dp"
+                        android:text="Test1"
+                        android:textSize="14sp" />
+
+                    <ImageButton
+                        android:id="@+id/btnDelete"
+                        android:layout_width="52dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="7dp"
+                        android:background="#e61e1e"
+                        android:src="@drawable/delete"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:gravity="right"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="20dp"
+                        android:text="Test1"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:gravity="right"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="20dp"
+                        android:text="Test1"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:gravity="right"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="20dp"
+                        android:text="Test1"
+                        android:textSize="14sp" />
+
+                    <ImageButton
+                        android:layout_width="52dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="7dp"
+                        android:background="#e61e1e"
+                        android:src="@drawable/delete"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:gravity="right"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="20dp"
+                        android:text="Test1"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:gravity="right"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="20dp"
+                        android:text="Test1"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:gravity="right"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="20dp"
+                        android:text="Test1"
+                        android:textSize="14sp" />
+
+                    <ImageButton
+                        android:layout_width="52dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="7dp"
+                        android:background="#e61e1e"
+                        android:src="@drawable/delete"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:gravity="right"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="20dp"
+                        android:text="Test1"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:gravity="right"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="20dp"
+                        android:text="Test1"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:gravity="right"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="20dp"
+                        android:text="Test1"
+                        android:textSize="14sp" />
+
+                    <ImageButton
+                        android:layout_width="52dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="7dp"
+                        android:background="#e61e1e"
+                        android:src="@drawable/delete"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+            </TableLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="70dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/white"
+                    android:text="&lt;"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:text="1"
+                    app:layout_constraintStart_toEndOf="@+id/button"
+                    app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:text="2"
+                    app:layout_constraintStart_toEndOf="@+id/button2"
+                    app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+                <Button
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/white"
+                    android:text="&gt;"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@+id/button3"
+                    app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="50dp"
+                android:background="#5481f4"
+                android:text="MEMBUAT JADWAL KONSULTASI"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+                android:layout_marginHorizontal="10dp" />
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

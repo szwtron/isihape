@@ -1,18 +1,24 @@
 package id.ac.umn.isihape.ui.appointments;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
+import id.ac.umn.isihape.R;
 import id.ac.umn.isihape.databinding.FragmentHomeBinding;
 
 public class AppointmentsFragment extends Fragment {
@@ -25,16 +31,8 @@ public class AppointmentsFragment extends Fragment {
         appointmentsViewModel =
                 new ViewModelProvider(this).get(AppointmentsViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View root = inflater.inflate(R.layout.fragment_appointments, container, false);
 
-        final TextView textView = binding.textHome;
-        appointmentsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
 

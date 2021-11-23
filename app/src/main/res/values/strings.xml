@@ -13,4 +13,20 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
 
+    <string-array name="keluhan_array">
+        <item>keluhan 1</item>
+        <item>keluhan 2</item>
+        <item>keluhan 3</item>
+        <item>keluhan 4</item>
+        <item>keluhan 5</item>
+    </string-array>
+
+    <string-array name="dokter_array">
+        <item>Dokter 1</item>
+        <item>Dokter 2</item>
+        <item>Dokter 3</item>
+        <item>Dokter 4</item>
+        <item>Dokter 5</item>
+    </string-array>
+
 </resources>

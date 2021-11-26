@@ -84,7 +84,7 @@ public class TambahJadwalKonsultasi extends AppCompatActivity {
                             Toast.makeText(TambahJadwalKonsultasi.this, "Jadwal berhasil ditambahkan", Toast.LENGTH_SHORT).show();
                         } else {
                             String message = task.getException().toString();
-                            Toast.makeText(TambahJadwalKonsultasi.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TambahJadwalKonsultasi.this, "Error: " + message, Toast.LENGTH_LONG).show();
                         }
                     }
                 });

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,25 +44,17 @@ import id.ac.umn.isihape.TambahJadwalKonsultasi;
 public class HomeFragment extends Fragment {
 
     private RecyclerView rvJadwalKonsultasi;
-    //DaftarJadwalAdapter homeJadwalAdapter;
-    LinkedList<SumberJadwal> daftarJadwal = new LinkedList<>();
 
     //edit
     private Button btnTambahJadwal;
-    private EditText etEditTanggal;
-    private EditText etEditDokter;
-    private EditText etEditWaktu;
-
-    //private ArrayList<ModelJadwal> arrayDaftarJadwal;
 
     //firebase
-    private DatabaseReference jadwalKonsultasiRef;
     private FirebaseAuth mAuth;
+    private DatabaseReference jadwalKonsultasiRef;
+    private DatabaseReference usersRef;
+
 
     private String currentUserID;
-
-
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,14 +65,19 @@ public class HomeFragment extends Fragment {
 
         //firebase init
         FirebaseApp.initializeApp(getActivity());
-        //homeFirebaseInstance = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         jadwalKonsultasiRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Jadwal");
+        usersRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Users");
+        Log.d("login", usersRef.getKey());
+        Log.d("login", String.valueOf(usersRef.getRef()));
+        Log.d("login", String.valueOf(usersRef.getRoot()));
+        Log.d("login", String.valueOf(usersRef.getClass()));
+        Log.d("login", String.valueOf(usersRef.getParent()));
 
 
+        //tambah jadwal
         btnTambahJadwal = (Button) root.findViewById(R.id.tambahJadwalKonsultasi);
-
         btnTambahJadwal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,32 +86,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
-//        homeDatabaseReference.child("data_jadwal").addValueEventListener(new ValueEventListener() {
-////            @Override
-////            public void onDataChange(@NonNull DataSnapshot snapshot) {
-////                arrayDaftarJadwal = new ArrayList<>();
-////
-////                for(DataSnapshot homeDataSnapshot : snapshot.getChildren()) {
-////                    ModelJadwal jadwal = homeDataSnapshot.getValue(ModelJadwal.class);
-////                    //jadwal.setKey(homeDataSnapshot.getKey());
-////                    arrayDaftarJadwal.add(jadwal);
-////                }
-////
-////                homeJadwalAdapter = new MainAdapter(MainActivity.this, arrayDaftarJadwal);
-////
-////            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        })
-
-
-
         return root;
     }
-
 
 
     @Override
@@ -152,9 +126,6 @@ public class HomeFragment extends Fragment {
                                     }
                                 });
                                 builder.show();
-
-
-
                             }
                         });
 

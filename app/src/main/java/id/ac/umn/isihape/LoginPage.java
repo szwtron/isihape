@@ -29,7 +29,6 @@ public class LoginPage extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
 
 
-
         loginBtn = findViewById(R.id.loginBtn);
         registerBtn = findViewById(R.id.registerBtn);
 

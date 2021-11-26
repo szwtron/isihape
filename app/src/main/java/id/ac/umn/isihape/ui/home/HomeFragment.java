@@ -1,5 +1,6 @@
 package id.ac.umn.isihape.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,8 +27,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import id.ac.umn.isihape.Login;
 import id.ac.umn.isihape.MainActivity;
 import id.ac.umn.isihape.R;
+import id.ac.umn.isihape.RegisterPage;
+import id.ac.umn.isihape.TambahJadwalKonsultasi;
 
 public class HomeFragment extends Fragment {
 
@@ -60,6 +66,18 @@ public class HomeFragment extends Fragment {
         FirebaseApp.initializeApp(getActivity());
         homeFirebaseInstance = FirebaseDatabase.getInstance();
         homeDatabaseReference = homeFirebaseInstance.getReference("jadwal");
+
+
+        btnTambahJadwal = (Button) root.findViewById(R.id.tambahJadwalKonsultasi);
+
+        btnTambahJadwal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent tambahJadwalIntent = new Intent(getActivity(), TambahJadwalKonsultasi.class);
+                startActivity(tambahJadwalIntent);
+            }
+        });
+
 //        homeDatabaseReference.child("data_jadwal").addValueEventListener(new ValueEventListener() {
 ////            @Override
 ////            public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewParent;
@@ -21,6 +22,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,8 +36,10 @@ public class RegisterPage extends AppCompatActivity {
     private TextView alreadyHaveAccountLink;
 
     private FirebaseAuth mAuth;
+    private DatabaseReference RootRef;
 
     private ProgressDialog loadingBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,9 @@ public class RegisterPage extends AppCompatActivity {
         setTitle("Register");
 
         mAuth = FirebaseAuth.getInstance();
+        //RootRef = FirebaseDatabase.getInstance().getReference();
+        RootRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference();
+
 
         InitializeFields();
 
@@ -81,7 +89,12 @@ public class RegisterPage extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        SendUserToLoginActivity();
+                        Log.d("database", RootRef.getRoot().toString());
+                        String currentUserID = mAuth.getCurrentUser().getUid();
+
+                        RootRef.child("Users").child(currentUserID).setValue("");
+
+                        SendUserToMainActivity();
                         Toast.makeText(RegisterPage.this, "Account created successfuly", Toast.LENGTH_SHORT).show();
                         loadingBar.dismiss();
                     } else {
@@ -94,6 +107,8 @@ public class RegisterPage extends AppCompatActivity {
         }
     }
 
+
+
     private void InitializeFields() {
         registerBtn = (Button) findViewById(R.id.register_button);
         userEmail = (EditText) findViewById(R.id.register_email);
@@ -105,7 +120,16 @@ public class RegisterPage extends AppCompatActivity {
 
     private void SendUserToLoginActivity() {
         Intent loginIntent = new Intent(RegisterPage.this, Login.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
+        finish();
+    }
+
+    private void SendUserToMainActivity() {
+        Intent mainIntent = new Intent(RegisterPage.this, MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
     }
 }
 

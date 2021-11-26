@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TambahJadwalKonsultasi">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/loginImage"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"/>
+
+            <DatePicker
+                android:id="@+id/etTanggalKonsultasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:hint="Masukkan tanggal. . ."
+                android:inputType="date"
+                android:background="@drawable/inputs"
+                android:padding="4dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"/>
+
+            <EditText
+                android:id="@+id/etDokterKonsultasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/etTanggalKonsultasi"
+                android:hint="Nama Dokter. . ."
+                android:inputType="textPersonName"
+                android:background="@drawable/inputs"
+                android:padding="4dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"/>
+
+            <TimePicker
+                android:id="@+id/etWaktuKonsultasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/etDokterKonsultasi"
+                android:hint="Waktu konsultasi. . ."
+                android:timePickerMode="spinner"
+                android:inputType="datetime"
+                android:background="@drawable/inputs"
+                android:padding="4dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp" />
+
+
+            <Button
+                android:id="@+id/tambahJadwalKonsultasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etWaktuKonsultasi"
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="19dp"
+                android:background="@drawable/buttons"
+                android:padding="4dp"
+                android:text="Tambah jadwal"
+                android:textAllCaps="false"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="24sp" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

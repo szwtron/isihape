@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
-    private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
 
     private ProgressDialog loadingBar;
@@ -37,11 +36,6 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login2);
 
         mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-        if(currentUser == null){
-            Log.d("login", "User not logged in");
-        }
-
 
         InitializeFields();
 
@@ -104,18 +98,11 @@ public class Login extends AppCompatActivity {
         loadingBar = new ProgressDialog(this);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        if(currentUser != null) {
-            SendUserToMainActivity();
-        }
-    }
-
     private void SendUserToMainActivity() {
-        Intent loginIntent = new Intent(Login.this, MainActivity.class);
-        startActivity(loginIntent);
+        Intent mainIntent = new Intent(Login.this, MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
     }
 
     private void SendUserToRegisterActivity() {

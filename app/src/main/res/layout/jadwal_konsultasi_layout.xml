@@ -1,34 +1,31 @@
-<TableRow xmlns:android="http://schemas.android.com/apk/res/android">
+<TableRow  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <TextView
-        android:id="@+id/tvTanggal"
-        android:gravity="right"
-        android:paddingHorizontal="25dp"
-        android:paddingVertical="20dp"
+        android:id="@+id/tvTanggalKonsultasi"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp"
         android:text="Test1"
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/tvDokter"
-        android:gravity="right"
-        android:paddingHorizontal="25dp"
-        android:paddingVertical="20dp"
+        android:id="@+id/tvDokterKonsultasi"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp"
         android:text="Test1"
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/tvWaktu"
-        android:layout_width="75dp"
-        android:gravity="right"
-        android:paddingHorizontal="25dp"
-        android:paddingVertical="20dp"
+        android:id="@+id/tvWaktuKonsultasi"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp"
         android:text="Test1"
         android:textSize="14sp" />
 
     <ImageButton
-        android:id="@+id/btnDelete"
+        android:id="@+id/btnDeleteKonsultasi"
         android:layout_width="52dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="7dp"
+        android:layout_height="40dp"
         android:background="#e61e1e"
         android:src="@drawable/delete"
         android:textColor="@color/white" />

@@ -62,28 +62,35 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
 
-                <TableRow android:background="#5481f4">
+                <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="#5481f4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
                     <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
+                        android:layout_width="90dp"
+                        android:paddingHorizontal="10dp"
                         android:paddingVertical="20dp"
                         android:text="Tanggal"
+                        android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
+                        android:layout_width="150dp"
+                        android:paddingHorizontal="10dp"
                         android:paddingVertical="20dp"
                         android:text="Dokter"
+                        android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
+                        android:layout_width="80dp"
+                        android:paddingHorizontal="10dp"
                         android:paddingVertical="20dp"
                         android:text="Waktu"
+                        android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 
@@ -91,9 +98,7 @@
                 </TableRow>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvJadwalKonsultasi"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:id="@+id/rvJadwalKonsultasi"/>
 
 <!--                <TableRow>-->
 <!--                    <TextView-->

@@ -6,6 +6,11 @@ public class SumberJadwal implements Serializable {
     private String tanggal;
     private String dokter;
     private String waktu;
+
+    public SumberJadwal() {
+
+    }
+
     public SumberJadwal(String tanggal, String dokter, String waktu) {
         this.tanggal = tanggal;
         this.dokter = dokter;

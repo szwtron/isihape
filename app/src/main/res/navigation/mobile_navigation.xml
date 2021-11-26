@@ -49,7 +49,7 @@
 
     <fragment
         android:id="@+id/nav_logout"
-        android:name="id.ac.umn.isihape.ui.doctors.DoctorsFragment"
+        android:name="id.ac.umn.isihape.ui.logout.LogoutFragment"
         android:label="Logout"
         tools:layout="@layout/doctors_slideshow" />
 </navigation>

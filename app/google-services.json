@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "319467362398",
+    "project_id": "isihape-441d5",
+    "storage_bucket": "isihape-441d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319467362398:android:d1fbd111e9e83cbdc23ccf",
+        "android_client_info": {
+          "package_name": "id.ac.umn.isihape"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319467362398-9lhvjdkm189rt65k508fjua0eelhnv2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4q5uY8a_YyB1lTRxyBeacqlhaDhON27Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "319467362398-9lhvjdkm189rt65k508fjua0eelhnv2f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

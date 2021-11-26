@@ -1,0 +1,35 @@
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/tvTanggal"
+        android:gravity="right"
+        android:paddingHorizontal="25dp"
+        android:paddingVertical="20dp"
+        android:text="Test1"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvDokter"
+        android:gravity="right"
+        android:paddingHorizontal="25dp"
+        android:paddingVertical="20dp"
+        android:text="Test1"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvWaktu"
+        android:layout_width="75dp"
+        android:gravity="right"
+        android:paddingHorizontal="25dp"
+        android:paddingVertical="20dp"
+        android:text="Test1"
+        android:textSize="14sp" />
+
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="52dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="7dp"
+        android:background="#e61e1e"
+        android:src="@drawable/delete"
+        android:textColor="@color/white" />
+</TableRow>

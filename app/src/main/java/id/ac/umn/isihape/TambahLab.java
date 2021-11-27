@@ -51,8 +51,8 @@ public class TambahLab extends AppCompatActivity{
                 labMap.put("nama", namaLab);
                 labMap.put("deskripsi", deskripsiLab);
                 labMap.put("harga", hargaLab);
-                String key = RootRef.child("Lab").child(currentUserId).push().getKey();
-                RootRef.child("Lab").child(currentUserId).child(key).setValue(labMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                String key = RootRef.child("Lab").push().getKey();
+                RootRef.child("Lab").child(key).setValue(labMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){

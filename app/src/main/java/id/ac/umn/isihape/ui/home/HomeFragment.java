@@ -93,6 +93,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart(){
         super.onStart();
+
         FirebaseRecyclerOptions<SumberJadwal> options =
                 new FirebaseRecyclerOptions.Builder<SumberJadwal>()
                 .setQuery(jadwalKonsultasiRef.child(currentUserID), SumberJadwal.class)
@@ -132,7 +133,7 @@ public class HomeFragment extends Fragment {
                         getJadwalRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if((snapshot.exists()) && snapshot.hasChild("tanggal") && (snapshot.hasChild("dokter") && (snapshot.hasChild("waktu")))){
+                                if(snapshot.exists()) {
                                     String retrieveTanggal = snapshot.child("tanggal").getValue().toString();
                                     String retrieveDokter = snapshot.child("dokter").getValue().toString();
                                     String retrieveWaktu = snapshot.child("waktu").getValue().toString();

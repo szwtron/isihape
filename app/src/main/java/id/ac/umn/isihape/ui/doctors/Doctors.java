@@ -5,15 +5,17 @@ import java.io.Serializable;
 public class Doctors implements Serializable {
     private String nama;
     private String spesialis;
+    private String harga;
     private String alamat;
 
     public Doctors() {
 
     }
 
-    public Doctors(String tanggal, String dokter, String waktu) {
+    public Doctors(String tanggal, String dokter, String harga, String waktu) {
         this.nama = tanggal;
         this.spesialis = dokter;
+        this.harga = harga;
         this.alamat = waktu;
     }
 
@@ -39,5 +41,13 @@ public class Doctors implements Serializable {
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
+    }
+
+    public String getHarga() {
+        return harga;
+    }
+
+    public void setHarga(String harga) {
+        this.harga = harga;
     }
 }

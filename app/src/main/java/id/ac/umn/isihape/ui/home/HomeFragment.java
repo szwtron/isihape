@@ -132,7 +132,7 @@ public class HomeFragment extends Fragment {
                         getJadwalRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if((snapshot.exists()) && snapshot.hasChild("tanggal") && (snapshot.hasChild("dokter") && (snapshot.hasChild("waktu")))){
+                                if(snapshot.exists()) {
                                     String retrieveTanggal = snapshot.child("tanggal").getValue().toString();
                                     String retrieveDokter = snapshot.child("dokter").getValue().toString();
                                     String retrieveWaktu = snapshot.child("waktu").getValue().toString();

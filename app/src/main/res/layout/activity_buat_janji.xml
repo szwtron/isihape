@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TambahDokter">
+    tools:context=".BuatJanji">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
                 android:layout_height="250dp" />
 
             <EditText
-                android:id="@+id/etNamaDokter"
+                android:id="@+id/buatJanjiNama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -33,10 +33,10 @@
                 android:padding="4dp" />
 
             <EditText
-                android:id="@+id/etSpesialisDokter"
+                android:id="@+id/buatJanjiSpesial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/etNamaDokter"
+                android:layout_below="@+id/buatJanjiNama"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="17dp"
                 android:layout_marginTop="25dp"
@@ -47,10 +47,10 @@
                 android:padding="4dp" />
 
             <EditText
-                android:id="@+id/etHargaDokter"
+                android:id="@+id/buatJanjiHarga"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/etSpesialisDokter"
+                android:layout_below="@+id/buatJanjiSpesial"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="17dp"
                 android:layout_marginTop="25dp"
@@ -60,31 +60,46 @@
                 android:inputType="number"
                 android:padding="4dp" />
 
-            <EditText
-                android:id="@+id/etAlamatDokter"
+            <DatePicker
+                android:id="@+id/buatJanjiTanggal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/etHargaDokter"
                 android:layout_alignParentStart="true"
-                android:layout_marginLeft="17dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="17dp"
+                android:layout_below="@+id/buatJanjiHarga"
+                android:hint="Masukkan tanggal. . ."
+                android:inputType="date"
                 android:background="@drawable/inputs"
-                android:hint="Alamat Dokter. . ."
-                android:inputType="textPersonName"
-                android:padding="4dp" />
+                android:padding="4dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"/>
+
+            <TimePicker
+                android:id="@+id/buatJanjiWaktu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/buatJanjiTanggal"
+                android:hint="Waktu konsultasi. . ."
+                android:timePickerMode="spinner"
+                android:inputType="datetime"
+                android:background="@drawable/inputs"
+                android:padding="4dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp" />
 
             <Button
-                android:id="@+id/tambahDokter"
+                android:id="@+id/tambahJanji"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/etAlamatDokter"
+                android:layout_below="@+id/buatJanjiWaktu"
                 android:layout_marginLeft="19dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginRight="19dp"
                 android:background="@drawable/buttons"
                 android:padding="4dp"
-                android:text="Tambah Dokter"
+                android:text="Buat Janji"
                 android:textAllCaps="false"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="24sp" />

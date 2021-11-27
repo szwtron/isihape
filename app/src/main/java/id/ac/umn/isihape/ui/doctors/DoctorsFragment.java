@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
+import id.ac.umn.isihape.BuatJanji;
 import id.ac.umn.isihape.MainActivity;
 import id.ac.umn.isihape.R;
 import id.ac.umn.isihape.TambahDokter;
@@ -49,8 +51,6 @@ public class DoctorsFragment extends Fragment {
 
     private FloatingActionButton btnTambahDokter;
 
-    private EditText etNamaDokter, etSpesialisDokter, etAlamatDokter;
-    private Button tambahDokter;
     private RecyclerView rvDokterList;
 
     private FirebaseAuth mAuth;
@@ -94,25 +94,66 @@ public class DoctorsFragment extends Fragment {
                 new FirebaseRecyclerAdapter<Doctors, DoctorsFragment.DoctorViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull DoctorsFragment.DoctorViewHolder doctorViewHolder, int i, @NonNull Doctors doctors) {
+
+
                         final String list_user_id = getRef(i).getKey();
                         DatabaseReference getDoctorsRef = getRef(i).getRef();
 
                         getDoctorsRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if((snapshot.exists()) && snapshot.hasChild("nama") && (snapshot.hasChild("spesialis"))){
-                                    String retrieveTanggal = snapshot.child("nama").getValue().toString();
-                                    String retrieveDokter = snapshot.child("spesialis").getValue().toString();
-                                    String retrieveWaktu = snapshot.child("alamat").getValue().toString();
+                                if((snapshot.exists()) && snapshot.hasChild("nama") && (snapshot.hasChild("spesialis") && (snapshot.hasChild("harga") && (snapshot.hasChild("alamat"))))){
+                                    String retrieveNama = snapshot.child("nama").getValue().toString();
+                                    String retrieveSpesialis = snapshot.child("spesialis").getValue().toString();
+                                    Log.d("add", "tes1");
+                                    String retrieveHarga = snapshot.child("harga").getValue().toString();
+                                    String retrieveAlamat = snapshot.child("alamat").getValue().toString();
 
-                                    doctorViewHolder.nama.setText(retrieveTanggal);
-                                    doctorViewHolder.spesialis.setText(retrieveDokter);
-                                    doctorViewHolder.alamat.setText(retrieveWaktu);
+                                    doctorViewHolder.nama.setText(retrieveNama);
+                                    doctorViewHolder.spesialis.setText(retrieveSpesialis);
+                                    doctorViewHolder.harga.setText("Rp. " + retrieveHarga);
+                                    doctorViewHolder.alamat.setText(retrieveAlamat);
+
                                 }
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                        doctorViewHolder.buatJanji.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent buatJanjiIntent = new Intent(getContext(), BuatJanji.class);
+                                DatabaseReference getDoctorsRef = getRef(i).getRef();
+
+                                getDoctorsRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if((snapshot.exists()) && snapshot.hasChild("nama") && (snapshot.hasChild("spesialis") && (snapshot.hasChild("harga") && (snapshot.hasChild("alamat"))))){
+                                            String retrieveNama = snapshot.child("nama").getValue().toString();
+                                            String retrieveSpesialis = snapshot.child("spesialis").getValue().toString();
+                                            Log.d("add", "tes1");
+                                            String retrieveHarga = snapshot.child("harga").getValue().toString();
+                                            String retrieveAlamat = snapshot.child("alamat").getValue().toString();
+
+                                            buatJanjiIntent.putExtra("nama", retrieveNama);
+                                            buatJanjiIntent.putExtra("spesialis", retrieveSpesialis);
+                                            buatJanjiIntent.putExtra("harga", retrieveHarga);
+                                            buatJanjiIntent.putExtra("alamat", retrieveAlamat);
+                                            buatJanjiIntent.putExtra("type", "appointment");
+                                            startActivity(buatJanjiIntent);
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
 
                             }
                         });
@@ -131,7 +172,7 @@ public class DoctorsFragment extends Fragment {
     }
 
     public static class DoctorViewHolder extends RecyclerView.ViewHolder{
-        TextView nama, spesialis, alamat;
+        TextView nama, spesialis, alamat, harga;
         Button buatJanji;
 
         public DoctorViewHolder(@NonNull View itemView) {
@@ -140,6 +181,7 @@ public class DoctorsFragment extends Fragment {
             nama = itemView.findViewById(R.id.tvNamaDokter);
             spesialis = itemView.findViewById(R.id.tvSpesialisasiDokter);
             alamat = itemView.findViewById(R.id.tvAdditionalDesc);
+            harga = itemView.findViewById(R.id.tvHargaDokter);
             buatJanji = itemView.findViewById(R.id.btnBuatJanji);
         }
     }

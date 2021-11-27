@@ -15,6 +15,7 @@ import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class RegisterPage extends AppCompatActivity {
@@ -39,6 +41,7 @@ public class RegisterPage extends AppCompatActivity {
     private DatabaseReference RootRef;
 
     private ProgressDialog loadingBar;
+    private String userType;
 
 
     @Override
@@ -91,15 +94,17 @@ public class RegisterPage extends AppCompatActivity {
                     if(task.isSuccessful()){
                         Log.d("database", RootRef.getRoot().toString());
                         String currentUserID = mAuth.getCurrentUser().getUid();
+                        HashMap<String, String> usersMap = new HashMap<>();
+                        usersMap.put("userType", userType);
 
-                        RootRef.child("Users").child(currentUserID).setValue("");
+                        RootRef.child("Users").child(currentUserID).setValue(usersMap);
 
                         SendUserToMainActivity();
                         Toast.makeText(RegisterPage.this, "Account created successfuly", Toast.LENGTH_SHORT).show();
                         loadingBar.dismiss();
                     } else {
                         String message = task.getException().toString();
-                        Toast.makeText(RegisterPage.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterPage.this, "Error: " + message, Toast.LENGTH_LONG).show();
                         loadingBar.dismiss();
                     }
                 }
@@ -130,6 +135,22 @@ public class RegisterPage extends AppCompatActivity {
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish();
+    }
+
+    public void onRadioButtonClicked(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radio_normal:
+                if (checked)
+                    userType = "Normal";
+                    break;
+            case R.id.radio_dokter:
+                if (checked)
+                    userType = "Dokter";
+                    break;
+        }
     }
 }
 

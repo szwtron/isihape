@@ -132,7 +132,7 @@ public class DoctorsFragment extends Fragment {
                                 getDoctorsRef.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if((snapshot.exists()) && snapshot.hasChild("nama") && (snapshot.hasChild("spesialis") && (snapshot.hasChild("harga") && (snapshot.hasChild("alamat"))))){
+                                        if(snapshot.exists()){
                                             String retrieveNama = snapshot.child("nama").getValue().toString();
                                             String retrieveSpesialis = snapshot.child("spesialis").getValue().toString();
                                             Log.d("add", "tes1");

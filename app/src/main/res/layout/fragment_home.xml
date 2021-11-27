@@ -62,163 +62,78 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
 
-                <TableRow android:background="#5481f4">
+                <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="#5481f4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
                     <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
+                        android:layout_width="90dp"
+                        android:paddingHorizontal="10dp"
                         android:paddingVertical="20dp"
                         android:text="Tanggal"
+                        android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
+                        android:layout_width="150dp"
+                        android:paddingHorizontal="10dp"
                         android:paddingVertical="20dp"
                         android:text="Dokter"
+                        android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
+                        android:layout_width="80dp"
+                        android:paddingHorizontal="10dp"
                         android:paddingVertical="20dp"
                         android:text="Waktu"
+                        android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 
 
                 </TableRow>
 
-                <TableRow>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvJadwalKonsultasi"/>
 
-                    <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
-                        android:paddingVertical="20dp"
-                        android:text="Test1"
-                        android:textSize="14sp" />
+<!--                <TableRow>-->
+<!--                    <TextView-->
+<!--                        android:gravity="center"-->
+<!--                        android:layout_width="95dp"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:paddingVertical="10dp"-->
+<!--                        android:text="12-11-2021"-->
+<!--                        android:textSize="14sp" />-->
 
-                    <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
-                        android:paddingVertical="20dp"
-                        android:text="Test1"
-                        android:textSize="14sp" />
+<!--                    <TextView-->
+<!--                        android:gravity="center"-->
+<!--                        android:layout_width="160dp"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:paddingVertical="20dp"-->
+<!--                        android:text="Dr. Stoneer banana"-->
+<!--                        android:textSize="14sp" />-->
 
-                    <TextView
-                        android:layout_width="75dp"
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
-                        android:paddingVertical="20dp"
-                        android:text="Test1"
-                        android:textSize="14sp" />
+<!--                    <TextView-->
+<!--                        android:layout_width="75dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:paddingHorizontal="10dp"-->
+<!--                        android:paddingVertical="10dp"-->
+<!--                        android:text="23:24 PM"-->
+<!--                        android:textSize="14sp" />-->
 
-                    <ImageButton
-                        android:id="@+id/btnDelete"
-                        android:layout_width="52dp"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="7dp"
-                        android:background="#e61e1e"
-                        android:src="@drawable/delete"
-                        android:textColor="@color/white" />
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
-                        android:paddingVertical="20dp"
-                        android:text="Test1"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
-                        android:paddingVertical="20dp"
-                        android:text="Test1"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
-                        android:paddingVertical="20dp"
-                        android:text="Test1"
-                        android:textSize="14sp" />
-
-                    <ImageButton
-                        android:layout_width="52dp"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="7dp"
-                        android:background="#e61e1e"
-                        android:src="@drawable/delete"
-                        android:textColor="@color/white" />
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
-                        android:paddingVertical="20dp"
-                        android:text="Test1"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
-                        android:paddingVertical="20dp"
-                        android:text="Test1"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
-                        android:paddingVertical="20dp"
-                        android:text="Test1"
-                        android:textSize="14sp" />
-
-                    <ImageButton
-                        android:layout_width="52dp"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="7dp"
-                        android:background="#e61e1e"
-                        android:src="@drawable/delete"
-                        android:textColor="@color/white" />
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
-                        android:paddingVertical="20dp"
-                        android:text="Test1"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
-                        android:paddingVertical="20dp"
-                        android:text="Test1"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:gravity="right"
-                        android:paddingHorizontal="25dp"
-                        android:paddingVertical="20dp"
-                        android:text="Test1"
-                        android:textSize="14sp" />
-
-                    <ImageButton
-                        android:layout_width="52dp"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="7dp"
-                        android:background="#e61e1e"
-                        android:src="@drawable/delete"
-                        android:textColor="@color/white" />
-                </TableRow>
+<!--                    <ImageButton-->
+<!--                        android:id="@+id/btnDelete"-->
+<!--                        android:layout_width="52dp"-->
+<!--                        android:layout_height="48dp"-->
+<!--                        android:layout_marginTop="7dp"-->
+<!--                        android:background="#e61e1e"-->
+<!--                        android:src="@drawable/delete"-->
+<!--                        android:textColor="@color/white" />-->
+<!--                </TableRow>-->
 
             </TableLayout>
 
@@ -277,6 +192,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/tambahJadwalKonsultasi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
@@ -287,6 +203,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/tableLayout"
                 android:layout_marginHorizontal="10dp" />
 
+
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

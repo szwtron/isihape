@@ -21,7 +21,7 @@ import java.util.HashMap;
 import id.ac.umn.isihape.ui.doctors.DoctorsFragment;
 
 public class TambahDokter extends AppCompatActivity {
-    private EditText etNamaDokter, etSpesialisDokter, etAlamatDokter;
+    private EditText etNamaDokter, etSpesialisDokter, etAlamatDokter, etHargaDokter;
     private Button tambahDokter;
 
     private FirebaseAuth mAuth;
@@ -39,6 +39,7 @@ public class TambahDokter extends AppCompatActivity {
         etNamaDokter = (EditText) findViewById(R.id.etNamaDokter);
         etSpesialisDokter = (EditText) findViewById(R.id.etSpesialisDokter);
         etAlamatDokter = (EditText) findViewById(R.id.etAlamatDokter);
+        etHargaDokter = (EditText) findViewById(R.id.etHargaDokter);
         tambahDokter = (Button) findViewById(R.id.tambahDokter);
 
         tambahDokter.setOnClickListener(new View.OnClickListener() {
@@ -47,11 +48,13 @@ public class TambahDokter extends AppCompatActivity {
                 String namaDokter = etNamaDokter.getText().toString();
                 String spesialisDokter = etSpesialisDokter.getText().toString();
                 String alamatDokter = etAlamatDokter.getText().toString();
+                String hargaDokter = etHargaDokter.getText().toString();
 
                 HashMap<String, String> dokterMap = new HashMap<>();
                 dokterMap.put("uid", currentUserId);
                 dokterMap.put("nama", namaDokter);
                 dokterMap.put("spesialis", spesialisDokter);
+                dokterMap.put("harga", hargaDokter);
                 dokterMap.put("alamat", alamatDokter);
                 String key = RootRef.child("Dokter").child(currentUserId).push().getKey();
                 RootRef.child("Dokter").child(currentUserId).child(key).setValue(dokterMap).addOnCompleteListener(new OnCompleteListener<Void>() {

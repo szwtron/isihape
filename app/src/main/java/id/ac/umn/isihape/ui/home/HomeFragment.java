@@ -31,7 +31,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -53,7 +52,6 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference jadwalKonsultasiRef;
     private DatabaseReference usersRef;
-    private FirebaseFirestore firebaseFirestore;
 
 
     private String currentUserID;

@@ -75,7 +75,7 @@ public class LabFragment extends Fragment {
         super.onStart();
         FirebaseRecyclerOptions<Labs> options =
                 new FirebaseRecyclerOptions.Builder<Labs>()
-                        .setQuery(labRef.child(currentUserID), Labs.class)
+                        .setQuery(labRef, Labs.class)
                         .build();
         FirebaseRecyclerAdapter<Labs, LabViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Labs, LabViewHolder>(options) {

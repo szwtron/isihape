@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Isihape">
         <activity
+            android:name=".RegisterPage2"
+            android:exported="true" />
+        <activity
             android:name=".TambahDokter"
             android:exported="true" />
         <activity

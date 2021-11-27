@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_doctors"
-        android:name="id.ac.umn.isihape.ui.doctors.DoctorsFragment"
+        android:name="id.ac.umn.isihape.ui.doctors.LabFragment"
         android:label="Doctors"
         tools:layout="@layout/doctors_slideshow" />
 
@@ -27,7 +27,7 @@
         android:id="@+id/nav_lab"
         android:name="id.ac.umn.isihape.ui.lab.LabFragment"
         android:label="Pemeriksaan Lab"
-        tools:layout="@layout/doctors_slideshow" />
+        tools:layout="@layout/fragment_lab" />
 
     <fragment
         android:id="@+id/nav_patients"
@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/nav_help"
-        android:name="id.ac.umn.isihape.ui.doctors.DoctorsFragment"
+        android:name="id.ac.umn.isihape.ui.doctors.LabFragment"
         android:label="Help"
         tools:layout="@layout/doctors_slideshow" />
 

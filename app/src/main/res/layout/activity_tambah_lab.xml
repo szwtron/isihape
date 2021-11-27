@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TambahLab">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/isihapeLogo"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="0dp"
+                app:srcCompat="@drawable/logo_isihape" />
+
+            <EditText
+                android:id="@+id/etNamaLab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/isihapeLogo"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="17dp"
+                android:background="@drawable/inputs"
+                android:hint="Nama Lab. . ."
+                android:inputType="textPersonName"
+                android:padding="4dp" />
+
+            <EditText
+                android:id="@+id/etDeskripsiLab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etNamaLab"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="17dp"
+                android:background="@drawable/inputs"
+                android:hint="Deskripsi Lab. . ."
+                android:inputType="textPersonName"
+                android:padding="4dp" />
+
+            <EditText
+                android:id="@+id/etHargaLab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etDeskripsiLab"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="17dp"
+                android:background="@drawable/inputs"
+                android:hint="Harga Lab. . ."
+                android:inputType="textPersonName"
+                android:padding="4dp" />
+
+            <Button
+                android:id="@+id/tambahLab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etHargaLab"
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="19dp"
+                android:background="@drawable/buttons"
+                android:padding="4dp"
+                android:text="Tambah Lab"
+                android:textAllCaps="false"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="24sp" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -88,7 +88,7 @@ public class DoctorsFragment extends Fragment {
         super.onStart();
         FirebaseRecyclerOptions<Doctors> options =
                 new FirebaseRecyclerOptions.Builder<Doctors>()
-                        .setQuery(doctorRef.child(currentUserID), Doctors.class)
+                        .setQuery(doctorRef, Doctors.class)
                         .build();
         FirebaseRecyclerAdapter<Doctors, DoctorsFragment.DoctorViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Doctors, DoctorsFragment.DoctorViewHolder>(options) {
@@ -102,7 +102,7 @@ public class DoctorsFragment extends Fragment {
                         getDoctorsRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if((snapshot.exists()) && snapshot.hasChild("nama") && (snapshot.hasChild("spesialis") && (snapshot.hasChild("harga") && (snapshot.hasChild("alamat"))))){
+                                if(snapshot.exists() && snapshot.hasChild("nama")){
                                     String retrieveNama = snapshot.child("nama").getValue().toString();
                                     String retrieveSpesialis = snapshot.child("spesialis").getValue().toString();
                                     Log.d("add", "tes1");
@@ -127,7 +127,7 @@ public class DoctorsFragment extends Fragment {
                             @Override
                             public void onClick(View view) {
                                 Intent buatJanjiIntent = new Intent(getContext(), BuatJanji.class);
-                                DatabaseReference getDoctorsRef = getRef(i).getRef();
+                                DatabaseReference getDoctorsRef = getRef(doctorViewHolder.getLayoutPosition()).getRef();
 
                                 getDoctorsRef.addValueEventListener(new ValueEventListener() {
                                     @Override

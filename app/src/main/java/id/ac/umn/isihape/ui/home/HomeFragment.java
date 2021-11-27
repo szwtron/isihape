@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -52,6 +53,7 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference jadwalKonsultasiRef;
     private DatabaseReference usersRef;
+    private FirebaseFirestore firebaseFirestore;
 
 
     private String currentUserID;
@@ -93,6 +95,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart(){
         super.onStart();
+
         FirebaseRecyclerOptions<SumberJadwal> options =
                 new FirebaseRecyclerOptions.Builder<SumberJadwal>()
                 .setQuery(jadwalKonsultasiRef.child(currentUserID), SumberJadwal.class)

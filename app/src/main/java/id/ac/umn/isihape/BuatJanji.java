@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -46,23 +47,7 @@ public class BuatJanji extends AppCompatActivity {
 
         InitializeFields();
 
-        int day  = buatJanjiTanggal.getDayOfMonth();
-        int month= buatJanjiTanggal.getMonth();
-        int year = buatJanjiTanggal.getYear();
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        String formatedDate = sdf.format(calendar.getTime());
-
-        String AM_PM;
-        if(buatJanjiWaktu.getHour() < 12) {
-            AM_PM = "AM";
-        } else {
-            AM_PM = "PM";
-        }
-
-        String time = buatJanjiWaktu.getHour() + ":" + buatJanjiWaktu.getMinute() + " " + AM_PM;
 
         Intent intent = getIntent();
         String Nama = (String) intent.getExtras().get("nama");
@@ -78,6 +63,23 @@ public class BuatJanji extends AppCompatActivity {
         tambahJanji.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int day  = buatJanjiTanggal.getDayOfMonth();
+                int month= buatJanjiTanggal.getMonth();
+                int year = buatJanjiTanggal.getYear();
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month, day);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                String formatedDate = sdf.format(calendar.getTime());
+
+                String AM_PM;
+                if(buatJanjiWaktu.getHour() < 12) {
+                    AM_PM = "AM";
+                } else {
+                    AM_PM = "PM";
+                }
+
+                String time = buatJanjiWaktu.getHour() + ":" + buatJanjiWaktu.getMinute() + " " + AM_PM;
                 String nama = buatJanjiNama.getText().toString();
                 String spesial = buatJanjiSpesial.getText().toString();
                 String harga = buatJanjiHarga.getText().toString();

@@ -79,36 +79,18 @@ public class RegisterPage extends AppCompatActivity {
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Please enter email. . .", Toast.LENGTH_SHORT).show();
         }
-        if(TextUtils.isEmpty(password)){
+        else if(TextUtils.isEmpty(password)){
             Toast.makeText(this, "Please enter password. . .", Toast.LENGTH_SHORT).show();
         }
+        else if(TextUtils.isEmpty(userType)){
+            Toast.makeText(this, "Please choose user type. . .", Toast.LENGTH_SHORT).show();
+        }
         else {
-            loadingBar.setTitle("Creating new account");
-            loadingBar.setMessage("Please wait, while we are creating new account for you. . .");
-            loadingBar.setCanceledOnTouchOutside(true);
-            loadingBar.show();
-
-            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        Log.d("database", RootRef.getRoot().toString());
-                        String currentUserID = mAuth.getCurrentUser().getUid();
-                        HashMap<String, String> usersMap = new HashMap<>();
-                        usersMap.put("userType", userType);
-
-                        RootRef.child("Users").child(currentUserID).setValue(usersMap);
-
-                        SendUserToMainActivity();
-                        Toast.makeText(RegisterPage.this, "Account created successfuly", Toast.LENGTH_SHORT).show();
-                        loadingBar.dismiss();
-                    } else {
-                        String message = task.getException().toString();
-                        Toast.makeText(RegisterPage.this, "Error: " + message, Toast.LENGTH_LONG).show();
-                        loadingBar.dismiss();
-                    }
-                }
-            });
+            Intent myIntent = new Intent(this, RegisterPage2.class);
+            myIntent.putExtra("email",email);
+            myIntent.putExtra("password",password);
+            myIntent.putExtra("userType",userType);
+            startActivity(myIntent);
         }
     }
 

@@ -15,6 +15,9 @@
             android:name=".BuatJanji"
             android:exported="true" />
         <activity
+            android:name=".RegisterPage2"
+            android:exported="true" />
+        <activity
             android:name=".TambahDokter"
             android:exported="true" />
         <activity

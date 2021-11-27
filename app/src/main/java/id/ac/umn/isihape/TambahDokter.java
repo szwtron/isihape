@@ -53,8 +53,8 @@ public class TambahDokter extends AppCompatActivity {
                 dokterMap.put("spesialis", spesialisDokter);
                 dokterMap.put("harga", hargaDokter);
                 dokterMap.put("alamat", alamatDokter);
-                String key = RootRef.child("Dokter").child(currentUserId).push().getKey();
-                RootRef.child("Dokter").child(currentUserId).child(key).setValue(dokterMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                String key = RootRef.child("Dokter").push().getKey();
+                RootRef.child("Dokter").child(key).setValue(dokterMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){

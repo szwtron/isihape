@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Isihape">
         <activity
+            android:name=".admin.AdminActivity"
+            android:exported="true"
+            android:label="@string/title_activity_admin" />
+        <activity
             android:name=".BuatJanji"
             android:exported="true" />
         <activity

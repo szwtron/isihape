@@ -116,7 +116,7 @@ public class Login extends AppCompatActivity {
         getUserRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                retrieveType = snapshot.child("userType").getValue().toString();1
+                retrieveType = snapshot.child("userType").getValue().toString();
 
                 if (retrieveType.equalsIgnoreCase("Dokter")) {
                     idType = "idstaff";

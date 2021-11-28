@@ -12,7 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Isihape">
         <activity
+            android:name=".RegisterDokter"
+            android:exported="true" />
+        <activity
+            android:name=".EditProfile"
+            android:exported="true" />
+        <activity
             android:name=".BuatJanji"
+            android:exported="true" />
+        <activity
+            android:name=".RegisterPage2"
             android:exported="true" />
         <activity
             android:name=".TambahDokter"

@@ -149,25 +149,59 @@ public class HomeFragment extends Fragment {
                             }
                         });
 
-                        getJadwalRef.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.exists()) {
-                                    String retrieveTanggal = snapshot.child("tanggal").getValue().toString();
-                                    String retrieveDokter = snapshot.child("dokter").getValue().toString();
-                                    String retrieveWaktu = snapshot.child("waktu").getValue().toString();
+                        if(usertype.equalsIgnoreCase("idpasien")){
+                            getJadwalRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if(snapshot.exists()) {
+                                        String retrieveTanggal = snapshot.child("tanggal").getValue().toString();
+                                        String retrieveDokter = snapshot.child("dokter").getValue().toString();
+                                        String retrieveWaktu = snapshot.child("waktu").getValue().toString();
 
-                                    jadwalKonsultasiViewHolder.tanggal.setText(retrieveTanggal);
-                                    jadwalKonsultasiViewHolder.dokter.setText(retrieveDokter);
-                                    jadwalKonsultasiViewHolder.waktu.setText(retrieveWaktu);
+                                        jadwalKonsultasiViewHolder.tanggal.setText(retrieveTanggal);
+                                        jadwalKonsultasiViewHolder.dokter.setText(retrieveDokter);
+                                        jadwalKonsultasiViewHolder.waktu.setText(retrieveWaktu);
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                        });
+                                }
+                            });
+                        } else {
+                            getJadwalRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if(snapshot.exists()) {
+                                        String retrieveTanggal = snapshot.child("tanggal").getValue().toString();
+
+                                        String retrieveWaktu = snapshot.child("waktu").getValue().toString();
+
+                                        jadwalKonsultasiViewHolder.tanggal.setText(retrieveTanggal);
+                                        jadwalKonsultasiViewHolder.waktu.setText(retrieveWaktu);
+
+                                        usersRef.child(snapshot.child("idpasien").getValue().toString()).addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                String retrieveDokter = snapshot.child("name").getValue().toString();
+                                                jadwalKonsultasiViewHolder.dokter.setText(retrieveDokter);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
                     }
 
                     @NonNull

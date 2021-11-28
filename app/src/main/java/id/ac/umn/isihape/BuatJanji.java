@@ -84,6 +84,24 @@ public class BuatJanji extends AppCompatActivity {
                 String spesial = buatJanjiSpesial.getText().toString();
                 String harga = buatJanjiHarga.getText().toString();
 
+                int day  = buatJanjiTanggal.getDayOfMonth();
+                int month= buatJanjiTanggal.getMonth();
+                int year = buatJanjiTanggal.getYear();
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month, day);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                String formatedDate = sdf.format(calendar.getTime());
+
+                String AM_PM;
+                if(buatJanjiWaktu.getHour() < 12) {
+                    AM_PM = "AM";
+                } else {
+                    AM_PM = "PM";
+                }
+
+                String time = buatJanjiWaktu.getHour() + ":" + buatJanjiWaktu.getMinute() + " " + AM_PM;
+
                 HashMap<String, String> janjiMap = new HashMap<>();
                 janjiMap.put("dokter", nama);
                 janjiMap.put("spesial", spesial);

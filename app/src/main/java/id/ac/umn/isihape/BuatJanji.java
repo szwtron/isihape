@@ -47,14 +47,14 @@ public class BuatJanji extends AppCompatActivity {
 
         InitializeFields();
 
-
-
         Intent intent = getIntent();
         String Nama = (String) intent.getExtras().get("nama");
         String Spesialis = (String) intent.getExtras().get("spesialis");
         String Harga = (String) intent.getExtras().get("harga");
         String Alamat = (String) intent.getExtras().get("alamat");
         String Type = (String) intent.getExtras().get("type");
+        String idStaff = (String) intent.getExtras().get("idstaff");
+        String idPasien = currentUserId;
 
         buatJanjiNama.setText(Nama);
         buatJanjiSpesial.setText(Spesialis);
@@ -84,24 +84,6 @@ public class BuatJanji extends AppCompatActivity {
                 String spesial = buatJanjiSpesial.getText().toString();
                 String harga = buatJanjiHarga.getText().toString();
 
-                int day  = buatJanjiTanggal.getDayOfMonth();
-                int month= buatJanjiTanggal.getMonth();
-                int year = buatJanjiTanggal.getYear();
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(year, month, day);
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                String formatedDate = sdf.format(calendar.getTime());
-
-                String AM_PM;
-                if(buatJanjiWaktu.getHour() < 12) {
-                    AM_PM = "AM";
-                } else {
-                    AM_PM = "PM";
-                }
-
-                String time = buatJanjiWaktu.getHour() + ":" + buatJanjiWaktu.getMinute() + " " + AM_PM;
-
                 HashMap<String, String> janjiMap = new HashMap<>();
                 janjiMap.put("dokter", nama);
                 janjiMap.put("spesial", spesial);
@@ -109,9 +91,11 @@ public class BuatJanji extends AppCompatActivity {
                 janjiMap.put("tanggal", formatedDate);
                 janjiMap.put("waktu", time);
                 janjiMap.put("type", Type);
+                janjiMap.put("idstaff", idStaff);
+                janjiMap.put("idpasien", idPasien);
 
-                String key = RootRef.child("Jadwal").child(currentUserId).push().getKey();
-                RootRef.child("Jadwal").child(currentUserId).child(key).setValue(janjiMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                String key = RootRef.child("Jadwal").push().getKey();
+                RootRef.child("Jadwal").child(key).setValue(janjiMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){

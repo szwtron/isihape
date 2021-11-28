@@ -1,16 +1,16 @@
 package id.ac.umn.isihape.ui.home;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -22,8 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,13 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
-import id.ac.umn.isihape.Login;
-import id.ac.umn.isihape.MainActivity;
 import id.ac.umn.isihape.R;
-import id.ac.umn.isihape.RegisterPage;
 import id.ac.umn.isihape.TambahJadwalKonsultasi;
 
 public class HomeFragment extends Fragment {
@@ -55,6 +47,7 @@ public class HomeFragment extends Fragment {
 
 
     private String currentUserID;
+    public String usertype;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -85,7 +78,9 @@ public class HomeFragment extends Fragment {
                 startActivity(tambahJadwalIntent);
             }
         });
-
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        usertype = sharedPreferences.getString("userType", "idpasien");
+        Log.d("shared", usertype);
         return root;
     }
 
@@ -96,7 +91,7 @@ public class HomeFragment extends Fragment {
 
         FirebaseRecyclerOptions<SumberJadwal> options =
                 new FirebaseRecyclerOptions.Builder<SumberJadwal>()
-                .setQuery(jadwalKonsultasiRef.child(currentUserID), SumberJadwal.class)
+                .setQuery(jadwalKonsultasiRef.orderByChild(usertype).equalTo(currentUserID), SumberJadwal.class)
                 .build();
         FirebaseRecyclerAdapter<SumberJadwal, JadwalKonsultasiViewHolder> adapter =
                 new FirebaseRecyclerAdapter<SumberJadwal, JadwalKonsultasiViewHolder>(options) {
@@ -130,17 +125,21 @@ public class HomeFragment extends Fragment {
                             }
                         });
 
-                        getJadwalRef.addValueEventListener(new ValueEventListener() {
+                        usersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.exists()) {
-                                    String retrieveTanggal = snapshot.child("tanggal").getValue().toString();
-                                    String retrieveDokter = snapshot.child("dokter").getValue().toString();
-                                    String retrieveWaktu = snapshot.child("waktu").getValue().toString();
+                                if (snapshot.exists()) {
+                                    // usertype = snapshot.child("userType").getValue().toString();
+//                                    Log.d("usertype", usertype);
 
-                                    jadwalKonsultasiViewHolder.tanggal.setText(retrieveTanggal);
-                                    jadwalKonsultasiViewHolder.dokter.setText(retrieveDokter);
-                                    jadwalKonsultasiViewHolder.waktu.setText(retrieveWaktu);
+                                    if(usertype.equalsIgnoreCase("idpasien")){
+                                        jadwalKonsultasiViewHolder.approveBtn.setEnabled(false);
+                                        jadwalKonsultasiViewHolder.approveBtn.setClickable(false);
+                                        jadwalKonsultasiViewHolder.approveBtn.setAlpha(0.0f);
+                                        jadwalKonsultasiViewHolder.deleteBtn.setEnabled(false);
+                                        jadwalKonsultasiViewHolder.deleteBtn.setClickable(false);
+                                        jadwalKonsultasiViewHolder.deleteBtn.setAlpha(0.0f);
+                                    }
                                 }
                             }
 
@@ -149,6 +148,60 @@ public class HomeFragment extends Fragment {
 
                             }
                         });
+
+                        if(usertype.equalsIgnoreCase("idpasien")){
+                            getJadwalRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if(snapshot.exists()) {
+                                        String retrieveTanggal = snapshot.child("tanggal").getValue().toString();
+                                        String retrieveDokter = snapshot.child("dokter").getValue().toString();
+                                        String retrieveWaktu = snapshot.child("waktu").getValue().toString();
+
+                                        jadwalKonsultasiViewHolder.tanggal.setText(retrieveTanggal);
+                                        jadwalKonsultasiViewHolder.dokter.setText(retrieveDokter);
+                                        jadwalKonsultasiViewHolder.waktu.setText(retrieveWaktu);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        } else {
+                            getJadwalRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if(snapshot.exists()) {
+                                        String retrieveTanggal = snapshot.child("tanggal").getValue().toString();
+
+                                        String retrieveWaktu = snapshot.child("waktu").getValue().toString();
+
+                                        jadwalKonsultasiViewHolder.tanggal.setText(retrieveTanggal);
+                                        jadwalKonsultasiViewHolder.waktu.setText(retrieveWaktu);
+
+                                        usersRef.child(snapshot.child("idpasien").getValue().toString()).addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                String retrieveDokter = snapshot.child("name").getValue().toString();
+                                                jadwalKonsultasiViewHolder.dokter.setText(retrieveDokter);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
                     }
 
                     @NonNull
@@ -165,7 +218,7 @@ public class HomeFragment extends Fragment {
 
     public static class JadwalKonsultasiViewHolder extends RecyclerView.ViewHolder{
         TextView tanggal, dokter, waktu;
-        ImageButton deleteBtn;
+        ImageButton deleteBtn, approveBtn;
 
         public JadwalKonsultasiViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -174,6 +227,7 @@ public class HomeFragment extends Fragment {
             dokter = itemView.findViewById(R.id.tvDokterKonsultasi);
             waktu = itemView.findViewById(R.id.tvWaktuKonsultasi);
             deleteBtn = itemView.findViewById(R.id.btnDeleteKonsultasi);
+            approveBtn = itemView.findViewById(R.id.btnApproveKonsultasi);
         }
     }
 

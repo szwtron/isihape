@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +20,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
 
@@ -29,6 +35,10 @@ public class Login extends AppCompatActivity {
     private Button loginBtn, phoneLoginBtn;
     private EditText userEmail, userPassword;
     private TextView needNewAccountLink, forgetPasswordLink;
+    private DatabaseReference getUserRef;
+    private String currentUserID;
+    public String retrieveType;
+    public String idType = "idpasien";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +46,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login2);
 
         mAuth = FirebaseAuth.getInstance();
+        getUserRef = FirebaseDatabase.getInstance("https://" + "isihape-441d5-default-rtdb" + ".asia-southeast1." + "firebasedatabase.app").getReference().child("Users");
 
         InitializeFields();
 
@@ -99,6 +110,33 @@ public class Login extends AppCompatActivity {
     }
 
     private void SendUserToMainActivity() {
+        currentUserID = mAuth.getCurrentUser().getUid();
+
+        //Check user Type
+        getUserRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                retrieveType = snapshot.child("userType").getValue().toString();1
+
+                if (retrieveType.equalsIgnoreCase("Dokter")) {
+                    idType = "idstaff";
+                }
+
+                if (retrieveType.equalsIgnoreCase("Normal")) {
+                    idType = "idpasien";
+                }
+
+                SharedPreferences sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("userType", idType);
+                editor.apply();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         Intent mainIntent = new Intent(Login.this, MainActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);

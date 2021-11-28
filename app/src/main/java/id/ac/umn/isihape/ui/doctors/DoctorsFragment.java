@@ -40,14 +40,12 @@ import id.ac.umn.isihape.BuatJanji;
 import id.ac.umn.isihape.MainActivity;
 import id.ac.umn.isihape.R;
 import id.ac.umn.isihape.TambahDokter;
-import id.ac.umn.isihape.databinding.FragmentHomeBinding;
 import id.ac.umn.isihape.ui.home.HomeFragment;
 
 
 public class DoctorsFragment extends Fragment {
 
     private DoctorsViewModel doctorsViewModel;
-    private FragmentHomeBinding binding;
 
     private FloatingActionButton btnTambahDokter;
 
@@ -189,6 +187,5 @@ public class DoctorsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 }

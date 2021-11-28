@@ -54,6 +54,7 @@ public class DoctorsFragment extends Fragment {
     private FirebaseAuth mAuth;
     private String currentUserID;
     private DatabaseReference doctorRef;
+    private DatabaseReference getUserRef;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -64,12 +65,33 @@ public class DoctorsFragment extends Fragment {
 
         rvDokterList = (RecyclerView) root.findViewById(R.id.rvDokterList);
         rvDokterList.setLayoutManager(new LinearLayoutManager(getContext()));
+        btnTambahDokter = (FloatingActionButton) root.findViewById(R.id.fabTambahDokter);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         doctorRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Users");
 
-        btnTambahDokter = (FloatingActionButton) root.findViewById(R.id.fabTambahDokter);
+        //Check user Type
+        getUserRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Users").getRef();
+        Log.d("check", getUserRef.child(currentUserID).toString());
+        getUserRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String retrieveType = snapshot.child("userType").getValue().toString();
+                Log.d("check", retrieveType);
+                if(retrieveType.equalsIgnoreCase("Normal")){
+                    btnTambahDokter.setEnabled(false);
+                    btnTambahDokter.setClickable(false);
+                    btnTambahDokter.setAlpha(0.0f);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         btnTambahDokter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

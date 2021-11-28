@@ -85,13 +85,17 @@ public class RegisterPage extends AppCompatActivity {
         else if(TextUtils.isEmpty(userType)){
             Toast.makeText(this, "Please choose user type. . .", Toast.LENGTH_SHORT).show();
         }
-        else {
-            Intent myIntent = new Intent(this, RegisterPage2.class);
-            myIntent.putExtra("email",email);
-            myIntent.putExtra("password",password);
-            myIntent.putExtra("userType",userType);
-            startActivity(myIntent);
+
+        Intent myIntent;
+        if (userType == "Dokter") {
+            myIntent = new Intent(this, RegisterDokter.class);
+        } else {
+            myIntent = new Intent(this, RegisterPage2.class);
         }
+        myIntent.putExtra("email",email);
+        myIntent.putExtra("password",password);
+        myIntent.putExtra("userType",userType);
+        startActivity(myIntent);
     }
 
 

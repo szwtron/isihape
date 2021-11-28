@@ -99,23 +99,23 @@ public class RegisterPage2 extends AppCompatActivity {
         String alamat =userAlamat.getText().toString();
         email = userEmail.getText().toString();
         if(TextUtils.isEmpty(name)){
-            Toast.makeText(this, "Please enter name. . .", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Tolong isi nama. . .", Toast.LENGTH_SHORT).show();
         }
         else if(TextUtils.isEmpty(notelp)){
-            Toast.makeText(this, "Please enter no telepon. . .", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Tolong isi no telepon. . .", Toast.LENGTH_SHORT).show();
         }
         else if(TextUtils.isEmpty(nik)){
-            Toast.makeText(this, "Please enter NIK. . .", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Tolong isi NIK. . .", Toast.LENGTH_SHORT).show();
         }
         else if(TextUtils.isEmpty(tanggalLahir)){
-            Toast.makeText(this, "Please enter tanggal lahir. . .", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Tolong isi tanggal lahir. . .", Toast.LENGTH_SHORT).show();
         }
         else if(TextUtils.isEmpty(alamat)){
-            Toast.makeText(this, "Please enter alamat. . .", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Tolong isi alamat. . .", Toast.LENGTH_SHORT).show();
         }
         else{
-            loadingBar.setTitle("Creating new account");
-            loadingBar.setMessage("Please wait, while we are creating new account for you. . .");
+            loadingBar.setTitle("Membuat akun");
+            loadingBar.setMessage("Mohon menunggu . . .");
             loadingBar.setCanceledOnTouchOutside(true);
             loadingBar.show();
 

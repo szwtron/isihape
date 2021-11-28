@@ -7,15 +7,15 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="id.ac.umn.isihape.admin.ui.home.HomeFragment"
+        android:name="id.ac.umn.isihape.admin.ui.CRUDAppointment.CRUDAppointmentFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="id.ac.umn.isihape.admin.ui.dashboard.DashboardFragment"
+        android:name="id.ac.umn.isihape.admin.ui.CRUDDoctors.CRUDDoctorsFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_cruddoctors" />
 
     <fragment
         android:id="@+id/navigation_notifications"

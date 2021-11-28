@@ -28,6 +28,8 @@ public class CRUDLabFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = inflater.inflate(R.layout.fragment_crudlab, container, false);
 
+        getActivity().setTitle("CRUD Lab");
+
         final TextView textView = binding.textHome;
         CRUDLabViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

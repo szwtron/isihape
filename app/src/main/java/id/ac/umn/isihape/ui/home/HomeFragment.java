@@ -105,6 +105,8 @@ public class HomeFragment extends Fragment {
                         final String list_user_id = getRef(i).getKey();
                         DatabaseReference getJadwalRef = getRef(i).getRef();
 
+
+
                         jadwalKonsultasiViewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

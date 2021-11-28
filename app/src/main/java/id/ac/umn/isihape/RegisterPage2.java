@@ -48,13 +48,13 @@ public class RegisterPage2 extends AppCompatActivity {
         setTitle("Register");
         mAuth = FirebaseAuth.getInstance();
         //RootRef = FirebaseDatabase.getInstance().getReference();
-        RootRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference();
+        RootRef = FirebaseDatabase.getInstance("https://" + "isihape-441d5-default-rtdb" + ".asia-southeast1." + "firebasedatabase.app").getReference();
         Intent myIntent = getIntent();
         email = myIntent.getStringExtra("email");
-        password= myIntent.getStringExtra("password");
-        userType= myIntent.getStringExtra("userType");
+        password = myIntent.getStringExtra("password");
+        userType = myIntent.getStringExtra("userType");
 
-        typeUser= (TextView) findViewById(R.id.userType);
+        typeUser = (TextView) findViewById(R.id.userType);
         typeUser.setText(userType);
         InitializeFields();
         userEmail.setText(email);
@@ -92,28 +92,23 @@ public class RegisterPage2 extends AppCompatActivity {
     }
 
     private void CreateNewAccount() {
-        String name =userName.getText().toString();
-        String notelp =userTelp.getText().toString();
-        String nik =userNIK.getText().toString();
-        String tanggalLahir =userLahir.getText().toString();
-        String alamat =userAlamat.getText().toString();
+        String name = userName.getText().toString();
+        String notelp = userTelp.getText().toString();
+        String nik = userNIK.getText().toString();
+        String tanggalLahir = userLahir.getText().toString();
+        String alamat = userAlamat.getText().toString();
         email = userEmail.getText().toString();
-        if(TextUtils.isEmpty(name)){
+        if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "Tolong isi nama. . .", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(notelp)){
+        } else if (TextUtils.isEmpty(notelp)) {
             Toast.makeText(this, "Tolong isi no telepon. . .", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(nik)){
+        } else if (TextUtils.isEmpty(nik)) {
             Toast.makeText(this, "Tolong isi NIK. . .", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(tanggalLahir)){
+        } else if (TextUtils.isEmpty(tanggalLahir)) {
             Toast.makeText(this, "Tolong isi tanggal lahir. . .", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(alamat)){
+        } else if (TextUtils.isEmpty(alamat)) {
             Toast.makeText(this, "Tolong isi alamat. . .", Toast.LENGTH_SHORT).show();
-        }
-        else{
+        } else {
             loadingBar.setTitle("Membuat akun");
             loadingBar.setMessage("Mohon menunggu . . .");
             loadingBar.setCanceledOnTouchOutside(true);
@@ -122,7 +117,7 @@ public class RegisterPage2 extends AppCompatActivity {
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         Log.d("database", RootRef.getRoot().toString());
                         String currentUserID = mAuth.getCurrentUser().getUid();
                         HashMap<String, Object> usersMap = new HashMap<>();
@@ -137,12 +132,11 @@ public class RegisterPage2 extends AppCompatActivity {
 
                         SendUserToMainActivity();
                         Toast.makeText(RegisterPage2.this, "Account created successfuly", Toast.LENGTH_SHORT).show();
-                        loadingBar.dismiss();
                     } else {
                         String message = task.getException().toString();
                         Toast.makeText(RegisterPage2.this, "Error: " + message, Toast.LENGTH_LONG).show();
-                        loadingBar.dismiss();
                     }
+                    loadingBar.dismiss();
                 }
             });
         }

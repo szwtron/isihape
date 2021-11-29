@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +33,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 import id.ac.umn.isihape.R;
 import id.ac.umn.isihape.TambahJadwalKonsultasi;
@@ -106,19 +112,62 @@ public class HomeFragment extends Fragment {
                                 //Alert dialog
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                                 builder.setCancelable(true);
-                                builder.setTitle("Kamu yakin mau menghapus appointment ini?");
-                                builder.setMessage("This action cannot be undone!");
-                                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                builder.setTitle("Anda yakin untuk menolak permintaan ini?");
+                                builder.setMessage("Aksi ini tidak dapat dirubah lagi");
+                                builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         dialogInterface.cancel();
                                     }
                                 });
 
-                                builder.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
+                                builder.setPositiveButton("Iya", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        getJadwalRef.removeValue();
+                                        HashMap<String, Object> tolakAppointment = new HashMap<String, Object>();
+                                        tolakAppointment.put("status", "ditolak");
+                                        getJadwalRef.updateChildren(tolakAppointment).addOnCompleteListener(new OnCompleteListener() {
+                                            @Override
+                                            public void onComplete(@NonNull Task task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(getActivity(), "Appointment ditolak", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                                builder.show();
+                            }
+                        });
+
+                        jadwalKonsultasiViewHolder.approveBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                //Alert dialog
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                builder.setCancelable(true);
+                                builder.setTitle("Anda yakin untuk menerima permintaan ini?");
+                                builder.setMessage("Aksi ini tidak dapat dirubah lagi");
+                                builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.cancel();
+                                    }
+                                });
+
+                                builder.setPositiveButton("Iya", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        HashMap<String, Object> terimaAppointment = new HashMap<>();
+                                        terimaAppointment.put("status", "diterima");
+                                        getJadwalRef.updateChildren(terimaAppointment).addOnCompleteListener(new OnCompleteListener() {
+                                            @Override
+                                            public void onComplete(@NonNull Task task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(getActivity(), "Appointment diterima", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
                                     }
                                 });
                                 builder.show();
@@ -161,6 +210,17 @@ public class HomeFragment extends Fragment {
                                         jadwalKonsultasiViewHolder.tanggal.setText(retrieveTanggal);
                                         jadwalKonsultasiViewHolder.dokter.setText(retrieveDokter);
                                         jadwalKonsultasiViewHolder.waktu.setText(retrieveWaktu);
+
+                                        if (snapshot.child("status").getValue().toString().equals("ditolak")) {
+                                            jadwalKonsultasiViewHolder.dokter.setTextColor(Color.RED);
+                                            jadwalKonsultasiViewHolder.waktu.setTextColor(Color.RED);
+                                            jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.RED);
+                                        }
+                                        if (snapshot.child("status").getValue().toString().equals("diterima")) {
+                                            jadwalKonsultasiViewHolder.dokter.setTextColor(Color.GREEN);
+                                            jadwalKonsultasiViewHolder.waktu.setTextColor(Color.GREEN);
+                                            jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.GREEN);
+                                        }
                                     }
                                 }
 
@@ -193,6 +253,26 @@ public class HomeFragment extends Fragment {
 
                                             }
                                         });
+
+                                        if (!snapshot.child("status").getValue().toString().equals("diproses")) {
+                                            jadwalKonsultasiViewHolder.approveBtn.setEnabled(false);
+                                            jadwalKonsultasiViewHolder.approveBtn.setClickable(false);
+                                            jadwalKonsultasiViewHolder.approveBtn.setAlpha(0.0f);
+                                            jadwalKonsultasiViewHolder.deleteBtn.setEnabled(false);
+                                            jadwalKonsultasiViewHolder.deleteBtn.setClickable(false);
+                                            jadwalKonsultasiViewHolder.deleteBtn.setAlpha(0.0f);
+                                        }
+                                        if (snapshot.child("status").getValue().toString().equals("ditolak")) {
+                                            jadwalKonsultasiViewHolder.dokter.setTextColor(Color.RED);
+                                            jadwalKonsultasiViewHolder.waktu.setTextColor(Color.RED);
+                                            jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.RED);
+                                        }
+                                        if (snapshot.child("status").getValue().toString().equals("diterima")) {
+                                            jadwalKonsultasiViewHolder.dokter.setTextColor(Color.GREEN);
+                                            jadwalKonsultasiViewHolder.waktu.setTextColor(Color.GREEN);
+                                            jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.GREEN);
+                                        }
+
                                     }
                                 }
 

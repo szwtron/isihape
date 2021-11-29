@@ -12,8 +12,8 @@ public class Doctors implements Serializable {
 
     }
 
-    public Doctors(String tanggal, String dokter, String harga, String waktu) {
-        this.nama = tanggal;
+    public Doctors(String nama, String dokter, String harga, String waktu) {
+        this.nama = nama;
         this.spesialis = dokter;
         this.harga = harga;
         this.alamat = waktu;

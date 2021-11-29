@@ -40,14 +40,12 @@ import id.ac.umn.isihape.BuatJanji;
 import id.ac.umn.isihape.MainActivity;
 import id.ac.umn.isihape.R;
 import id.ac.umn.isihape.TambahDokter;
-import id.ac.umn.isihape.databinding.FragmentHomeBinding;
 import id.ac.umn.isihape.ui.home.HomeFragment;
 
 
 public class DoctorsFragment extends Fragment {
 
     private DoctorsViewModel doctorsViewModel;
-    private FragmentHomeBinding binding;
 
     private FloatingActionButton btnTambahDokter;
 
@@ -71,7 +69,7 @@ public class DoctorsFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
-        doctorRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Dokter");
+        doctorRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Users");
 
         //Check user Type
         getUserRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Users").getRef();
@@ -110,22 +108,21 @@ public class DoctorsFragment extends Fragment {
         super.onStart();
         FirebaseRecyclerOptions<Doctors> options =
                 new FirebaseRecyclerOptions.Builder<Doctors>()
-                        .setQuery(doctorRef, Doctors.class)
+                        .setQuery(doctorRef.orderByChild("userType").equalTo("Dokter"), Doctors.class)
                         .build();
         FirebaseRecyclerAdapter<Doctors, DoctorsFragment.DoctorViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Doctors, DoctorsFragment.DoctorViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull DoctorsFragment.DoctorViewHolder doctorViewHolder, int i, @NonNull Doctors doctors) {
-
-
                         final String list_user_id = getRef(i).getKey();
                         DatabaseReference getDoctorsRef = getRef(i).getRef();
-
                         getDoctorsRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.exists() && snapshot.hasChild("nama")){
-                                    String retrieveNama = snapshot.child("nama").getValue().toString();
+                                if (snapshot.exists() && snapshot.child("userType").getValue().toString().equals("Dokter")) {
+                                    Log.d("test", snapshot.child("name").getValue().toString());
+
+                                    String retrieveNama = snapshot.child("name").getValue().toString();
                                     String retrieveSpesialis = snapshot.child("spesialis").getValue().toString();
                                     Log.d("add", "tes1");
                                     String retrieveHarga = snapshot.child("harga").getValue().toString();
@@ -135,7 +132,6 @@ public class DoctorsFragment extends Fragment {
                                     doctorViewHolder.spesialis.setText(retrieveSpesialis);
                                     doctorViewHolder.harga.setText("Rp. " + retrieveHarga);
                                     doctorViewHolder.alamat.setText(retrieveAlamat);
-
                                 }
                             }
 
@@ -155,12 +151,14 @@ public class DoctorsFragment extends Fragment {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         if(snapshot.exists()){
-                                            String retrieveNama = snapshot.child("nama").getValue().toString();
+                                            String retrieveNama = snapshot.child("name").getValue().toString();
                                             String retrieveSpesialis = snapshot.child("spesialis").getValue().toString();
-                                            Log.d("add", "tes1");
                                             String retrieveHarga = snapshot.child("harga").getValue().toString();
                                             String retrieveAlamat = snapshot.child("alamat").getValue().toString();
+                                            String retrieveId = snapshot.getKey().toString();
+                                            Log.d("iddoctor", retrieveId);
 
+                                            buatJanjiIntent.putExtra("idstaff", retrieveId);
                                             buatJanjiIntent.putExtra("nama", retrieveNama);
                                             buatJanjiIntent.putExtra("spesialis", retrieveSpesialis);
                                             buatJanjiIntent.putExtra("harga", retrieveHarga);
@@ -211,6 +209,5 @@ public class DoctorsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 }

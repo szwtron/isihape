@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView rvJadwalKonsultasi;
 
     //edit
-    private Button btnTambahJadwal;
+    //private Button btnTambahJadwal;
 
     //firebase
     private FirebaseAuth mAuth;
@@ -76,14 +76,14 @@ public class HomeFragment extends Fragment {
 
 
         //tambah jadwal
-        btnTambahJadwal = (Button) root.findViewById(R.id.tambahJadwalKonsultasi);
-        btnTambahJadwal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent tambahJadwalIntent = new Intent(getActivity(), TambahJadwalKonsultasi.class);
-                startActivity(tambahJadwalIntent);
-            }
-        });
+       // btnTambahJadwal = (Button) root.findViewById(R.id.tambahJadwalKonsultasi);
+//        btnTambahJadwal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent tambahJadwalIntent = new Intent(getActivity(), TambahJadwalKonsultasi.class);
+//                startActivity(tambahJadwalIntent);
+//            }
+//        });
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
         usertype = sharedPreferences.getString("userType", "idpasien");
         Log.d("shared", usertype);

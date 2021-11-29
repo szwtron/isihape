@@ -61,7 +61,7 @@ public class ProfileFragment extends Fragment {
         userProfileImg = (ImageView) root.findViewById(R.id.userProfile);
         RootRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Users");
         //uId = (TextView) root.findViewById(R.id.Uid);
-        uId.setText(currentUserID);
+        //uId.setText(currentUserID);
 
         Log.d("tag", "banana");
 //

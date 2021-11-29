@@ -27,7 +27,7 @@
         android:id="@+id/nav_lab"
         android:name="id.ac.umn.isihape.ui.lab.LabFragment"
         android:label="Pemeriksaan Lab"
-        tools:layout="@layout/doctors_slideshow" />
+        tools:layout="@layout/fragment_lab" />
 
     <fragment
         android:id="@+id/nav_patients"

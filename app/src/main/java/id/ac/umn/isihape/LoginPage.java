@@ -28,8 +28,6 @@ public class LoginPage extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         currentUser = mAuth.getCurrentUser();
 
-
-
         loginBtn = findViewById(R.id.loginBtn);
         registerBtn = findViewById(R.id.registerBtn);
 

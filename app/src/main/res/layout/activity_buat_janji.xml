@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BuatJanji">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/loginImage"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />
+
+            <EditText
+                android:id="@+id/buatJanjiNama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="17dp"
+                android:background="@drawable/inputs"
+                android:hint="Nama Dokter. . ."
+                android:inputType="textPersonName"
+                android:padding="4dp" />
+
+            <EditText
+                android:id="@+id/buatJanjiSpesial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/buatJanjiNama"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="17dp"
+                android:background="@drawable/inputs"
+                android:hint="Spesialis Dokter. . ."
+                android:inputType="textPersonName"
+                android:padding="4dp" />
+
+            <EditText
+                android:id="@+id/buatJanjiHarga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/buatJanjiSpesial"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="17dp"
+                android:background="@drawable/inputs"
+                android:hint="Harga appointment dokter. . ."
+                android:inputType="number"
+                android:padding="4dp" />
+
+            <DatePicker
+                android:id="@+id/buatJanjiTanggal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/buatJanjiHarga"
+                android:hint="Masukkan tanggal. . ."
+                android:inputType="date"
+                android:background="@drawable/inputs"
+                android:padding="4dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"/>
+
+            <TimePicker
+                android:id="@+id/buatJanjiWaktu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/buatJanjiTanggal"
+                android:hint="Waktu konsultasi. . ."
+                android:timePickerMode="spinner"
+                android:inputType="datetime"
+                android:background="@drawable/inputs"
+                android:padding="4dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp" />
+
+            <Button
+                android:id="@+id/tambahJanji"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/buatJanjiWaktu"
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="19dp"
+                android:background="@drawable/buttons"
+                android:padding="4dp"
+                android:text="Buat Janji"
+                android:textAllCaps="false"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="24sp" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

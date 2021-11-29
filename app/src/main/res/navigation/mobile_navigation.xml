@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/nav_appointments"
         android:name="id.ac.umn.isihape.ui.qrcode.QRCodeFragment"
-        android:label="Appointments"
+        android:label="QR Code"
         tools:layout="@layout/fragment_qrcode" />
 
     <fragment

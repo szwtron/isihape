@@ -70,16 +70,16 @@ public class EditLab extends AppCompatActivity {
         });
 
     }
-    private void SendtoCRUDLab() {
-        try{
-            Log.d("keluar","keluar activity");
-            finish();
-        }
-        catch (Exception e){
-            Toast.makeText(EditLab.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-
+    public void SendtoCRUDLab() {
+        finish();
+        onBackPressed();
     }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+    }
+
     public void initializeField(){
         etNama= (EditText) findViewById(R.id.etNamaLab);
         etharga= (EditText) findViewById(R.id.etHargaLab);

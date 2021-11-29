@@ -63,13 +63,13 @@ public class EditDoctors extends AppCompatActivity {
                 else{
                     RootRef.child(id).updateChildren(docMap);
                     Toast.makeText(EditDoctors.this, "Lab berhasil diedit", Toast.LENGTH_SHORT).show();
-                    SendtoCRUDLab();
+                    SendtoCRUDDoctors();
                 }
             }
         });
     }
 
-    public void SendtoCRUDLab() {
+    public void SendtoCRUDDoctors() {
         finish();
         onBackPressed();
     }

@@ -1,23 +1,24 @@
 package id.ac.umn.isihape.admin.ui.CRUDLab;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +34,7 @@ public class CRUDLabFragment extends Fragment {
     private RecyclerView rvLabList;
     private id.ac.umn.isihape.admin.ui.CRUDLab.CRUDLabViewModel CRUDLabViewModel;
     private DatabaseReference labRef;
+    private FloatingActionButton btnTambahLab;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,10 +46,16 @@ public class CRUDLabFragment extends Fragment {
 
         rvLabList = (RecyclerView) root.findViewById(R.id.rvLabList);
         rvLabList.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        btnTambahLab = (FloatingActionButton) root.findViewById(R.id.fabTambahLab);
         FirebaseApp.initializeApp(getActivity());
         labRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Lab");
-        Log.d("asd", "masuk1");
+        btnTambahLab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), TambahLab.class);
+                startActivity(intent);
+            }
+        });
         return root;
     }
 
@@ -65,19 +73,16 @@ public class CRUDLabFragment extends Fragment {
                 new FirebaseRecyclerAdapter<Labs, CRUDLabFragment.LabViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull CRUDLabFragment.LabViewHolder labViewHolder, int i, @NonNull Labs labs) {
-                        Log.d("asd", "masuk3");
 
                         DatabaseReference getLabRef = getRef(i).getRef();
-                        Log.d("asd", String.valueOf(getLabRef));
                         getLabRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                Log.d("asd", "masuk4");
 
                                 if(snapshot.exists()) {
-                                    Log.d("asd", "masuk5");
 
                                     String id = getLabRef.getKey().toString();
+                                    Log.d("key", id);
 
                                     DatabaseReference getIdRef = FirebaseDatabase.getInstance(
                                             "https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app"
@@ -101,6 +106,59 @@ public class CRUDLabFragment extends Fragment {
                                         }
                                     });
 
+                                    labViewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            DatabaseReference getLabRef = getRef(labViewHolder.getLayoutPosition()).getRef();
+
+                                            getLabRef.addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if(snapshot.exists()){
+                                                        String id = getLabRef.getKey().toString();
+                                                        Log.d("dsa", String.valueOf(getLabRef.child(id)));
+                                                        getLabRef.removeValue();
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+                                        }
+                                    });
+
+                                    labViewHolder.editBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            DatabaseReference getLabRef = getRef(labViewHolder.getLayoutPosition()).getRef();
+                                            getLabRef.addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if(snapshot.exists()){
+                                                        String id = getLabRef.getKey().toString();
+                                                        Log.d("id", id);
+                                                        Intent intent = new Intent(getActivity(), EditLab.class);
+                                                        String retrieveNama= snapshot.child("nama").getValue().toString();
+                                                        String retrieveHarga = snapshot.child("harga").getValue().toString();
+                                                        String retrieveDeskripsi = snapshot.child("deskripsi").getValue().toString();
+
+                                                        intent.putExtra("id",id);
+                                                        intent.putExtra("nama",retrieveNama);
+                                                        intent.putExtra("harga",retrieveHarga);
+                                                        intent.putExtra("deksripsi",retrieveDeskripsi);
+                                                        startActivity(intent);
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+                                        }
+                                    });
 
                                 }
                             }
@@ -126,12 +184,12 @@ public class CRUDLabFragment extends Fragment {
 
     public static class LabViewHolder extends RecyclerView.ViewHolder{
         TextView nama, deskripsi, harga;
-        ImageButton deleteBtn,editBtn;
+        Button deleteBtn,editBtn;
 
         public LabViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            deskripsi = itemView.findViewById(R.id.tvlabName);
+            deskripsi = itemView.findViewById(R.id.tvlabDesc);
             harga = itemView.findViewById(R.id.tvlabPrice);
             nama = itemView.findViewById(R.id.tvlabName);
             deleteBtn = itemView.findViewById(R.id.deleteLab);

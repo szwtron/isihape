@@ -62,4 +62,10 @@ dependencies {
 
     //Gligar
     implementation 'com.opensooq.supernova:gligar:1.1.0'
+
+    //QR Code
+    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
+
+    //CAMVieww
+    implementation ('eu.livotov.labs.android:CAMView:2.0.1@aar') {transitive=true}
 }

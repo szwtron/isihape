@@ -1,6 +1,7 @@
 package id.ac.umn.isihape.ui.qrcode;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -31,7 +33,9 @@ public class QRCodeFragment extends Fragment {
     private String currentUserID;
     Bitmap bitmap;
     QRGEncoder qrgEncoder;
+
     private ImageView qrCodeImage;
+    private Button btnScanQR;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -76,6 +80,16 @@ public class QRCodeFragment extends Fragment {
             // exception handling.
             Log.e("Tag", e.toString());
         }
+
+        btnScanQR = root.findViewById(R.id.btnScanQR);
+
+        btnScanQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent scanIntent = new Intent(getActivity(), ScanQR.class);
+                startActivity(scanIntent);
+            }
+        });
 
         return root;
     }

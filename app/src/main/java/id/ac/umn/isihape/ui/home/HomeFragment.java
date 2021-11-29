@@ -106,6 +106,8 @@ public class HomeFragment extends Fragment {
                         final String list_user_id = getRef(i).getKey();
                         DatabaseReference getJadwalRef = getRef(i).getRef();
 
+
+
                         jadwalKonsultasiViewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -217,9 +219,9 @@ public class HomeFragment extends Fragment {
                                             jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.RED);
                                         }
                                         if (snapshot.child("status").getValue().toString().equals("diterima")) {
-                                            jadwalKonsultasiViewHolder.dokter.setTextColor(Color.GREEN);
-                                            jadwalKonsultasiViewHolder.waktu.setTextColor(Color.GREEN);
-                                            jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.GREEN);
+                                            jadwalKonsultasiViewHolder.dokter.setTextColor(Color.parseColor("#10ad09"));
+                                            jadwalKonsultasiViewHolder.waktu.setTextColor(Color.parseColor("#10ad09"));
+                                            jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.parseColor("#10ad09"));
                                         }
                                     }
                                 }
@@ -268,9 +270,9 @@ public class HomeFragment extends Fragment {
                                             jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.RED);
                                         }
                                         if (snapshot.child("status").getValue().toString().equals("diterima")) {
-                                            jadwalKonsultasiViewHolder.dokter.setTextColor(Color.GREEN);
-                                            jadwalKonsultasiViewHolder.waktu.setTextColor(Color.GREEN);
-                                            jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.GREEN);
+                                            jadwalKonsultasiViewHolder.dokter.setTextColor(Color.parseColor("#10ad09"));
+                                            jadwalKonsultasiViewHolder.waktu.setTextColor(Color.parseColor("#10ad09"));
+                                            jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.parseColor("#10ad09"));
                                         }
 
                                     }
@@ -314,7 +316,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
     @Override

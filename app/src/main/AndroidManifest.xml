@@ -15,7 +15,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Isihape">
+        android:theme="@style/Theme.Isihape"
+        android:requestLegacyExternalStorage="true">
+        <activity
+            android:name=".admin.ui.CRUDDoctors.EditDoctors"
+            android:exported="true" />
+        <activity
+            android:name=".admin.ui.CRUDLab.EditLab"
+            android:exported="true" />
+        <activity
+            android:name=".admin.AdminActivity"
+            android:exported="true"
+            android:label="@string/title_activity_admin" />
         <activity
             android:name=".ui.qrcode.ScanQR"
             android:exported="true" />
@@ -35,7 +46,7 @@
             android:name=".TambahDokter"
             android:exported="true" />
         <activity
-            android:name=".TambahLab"
+            android:name=".admin.ui.CRUDLab.TambahLab"
             android:exported="true" />
         <activity
             android:name=".TambahJadwalKonsultasi"

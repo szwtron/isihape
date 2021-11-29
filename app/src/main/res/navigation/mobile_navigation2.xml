@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation2"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="id.ac.umn.isihape.admin.ui.CRUDAppointment.CRUDAppointmentFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="id.ac.umn.isihape.admin.ui.CRUDDoctors.CRUDDoctorsFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_cruddoctors" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="id.ac.umn.isihape.admin.ui.CRUDLab.CRUDLabFragment"
+        android:label="CRUD Lab"
+        tools:layout="@layout/fragment_crudlab" />
+</navigation>

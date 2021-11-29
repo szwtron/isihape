@@ -100,41 +100,6 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvJadwalKonsultasi"/>
 
-<!--                <TableRow>-->
-<!--                    <TextView-->
-<!--                        android:gravity="center"-->
-<!--                        android:layout_width="95dp"-->
-<!--                        android:paddingHorizontal="10dp"-->
-<!--                        android:paddingVertical="10dp"-->
-<!--                        android:text="12-11-2021"-->
-<!--                        android:textSize="14sp" />-->
-
-<!--                    <TextView-->
-<!--                        android:gravity="center"-->
-<!--                        android:layout_width="160dp"-->
-<!--                        android:paddingHorizontal="10dp"-->
-<!--                        android:paddingVertical="20dp"-->
-<!--                        android:text="Dr. Stoneer banana"-->
-<!--                        android:textSize="14sp" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="75dp"-->
-<!--                        android:gravity="center"-->
-<!--                        android:paddingHorizontal="10dp"-->
-<!--                        android:paddingVertical="10dp"-->
-<!--                        android:text="23:24 PM"-->
-<!--                        android:textSize="14sp" />-->
-
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/btnDelete"-->
-<!--                        android:layout_width="52dp"-->
-<!--                        android:layout_height="48dp"-->
-<!--                        android:layout_marginTop="7dp"-->
-<!--                        android:background="#e61e1e"-->
-<!--                        android:src="@drawable/delete"-->
-<!--                        android:textColor="@color/white" />-->
-<!--                </TableRow>-->
-
             </TableLayout>
 
             <LinearLayout

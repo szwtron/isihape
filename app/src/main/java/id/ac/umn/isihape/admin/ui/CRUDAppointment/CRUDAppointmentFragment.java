@@ -112,46 +112,64 @@ public class CRUDAppointmentFragment extends Fragment {
                                                 }
                                             });
 
-                                            appointmentViewHolder.approvedBtn.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View view) {
-                                                    HashMap<String, Object> updateAppointment = new HashMap<String, Object>();
-                                                    if (retrieveStatus.equalsIgnoreCase("diproses")) {
-                                                        updateAppointment.put("status", "diterima");
-                                                        appointmentViewHolder.approvedBtn.setEnabled(false);
-                                                        appointmentViewHolder.approvedBtn.setClickable(false);
-                                                    }
-                                                    getIdRef.updateChildren(updateAppointment).addOnCompleteListener(new OnCompleteListener() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task task) {
-                                                            if (task.isSuccessful()) {
-                                                                Toast.makeText(getActivity(), "Antrian Cek Laboratorium Terupdate", Toast.LENGTH_SHORT).show();
-                                                            }
-                                                        }
-                                                    });
-                                                }
-                                            });
+//                                            appointmentViewHolder.approvedBtn.setOnClickListener(new View.OnClickListener() {
+//                                                @Override
+//                                                public void onClick(View view) {
+//                                                    HashMap<String, Object> updateAppointment = new HashMap<String, Object>();
+//                                                    if (retrieveStatus.equalsIgnoreCase("diproses")) {
+//                                                        updateAppointment.put("status", "diterima");
+//                                                        appointmentViewHolder.approvedBtn.setEnabled(false);
+//                                                        appointmentViewHolder.approvedBtn.setClickable(false);
+//                                                    }
+//                                                    getIdRef.updateChildren(updateAppointment).addOnCompleteListener(new OnCompleteListener() {
+//                                                        @Override
+//                                                        public void onComplete(@NonNull Task task) {
+//                                                            if (task.isSuccessful()) {
+//                                                                Toast.makeText(getActivity(), "Antrian Cek Laboratorium Terupdate", Toast.LENGTH_SHORT).show();
+//                                                            }
+//                                                        }
+//                                                    });
+//                                                }
+//                                            });
 
                                             appointmentViewHolder.approvedBtn.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
-                                                    HashMap<String, Object> updateAppointment = new HashMap<String, Object>();
-                                                    if (retrieveStatus.equalsIgnoreCase("diproses")) {
-                                                        updateAppointment.put("status", "diterima");
-                                                        appointmentViewHolder.approvedBtn.setEnabled(false);
-                                                        appointmentViewHolder.approvedBtn.setClickable(false);
-                                                        appointmentViewHolder.deleteBtn.setEnabled(false);
-                                                        appointmentViewHolder.deleteBtn.setClickable(false);
-                                                        appointmentViewHolder.deleteBtn.setAlpha(0.0f);
-                                                    }
-                                                    getIdRef.updateChildren(updateAppointment).addOnCompleteListener(new OnCompleteListener() {
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                                    builder.setCancelable(true);
+                                                    builder.setTitle("Anda yakin untuk menerima permintaan ini?");
+                                                    builder.setMessage("Aksi ini tidak dapat dirubah lagi");
+                                                    builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
                                                         @Override
-                                                        public void onComplete(@NonNull Task task) {
-                                                            if (task.isSuccessful()) {
-                                                                Toast.makeText(getActivity(), "Antrian Cek Laboratorium Terupdate", Toast.LENGTH_SHORT).show();
-                                                            }
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                                            dialogInterface.cancel();
                                                         }
                                                     });
+
+                                                    builder.setPositiveButton("Iya", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                                            HashMap<String, Object> updateAppointment = new HashMap<String, Object>();
+                                                            if (retrieveStatus.equalsIgnoreCase("diproses")) {
+                                                                updateAppointment.put("status", "diterima");
+                                                                appointmentViewHolder.approvedBtn.setEnabled(false);
+                                                                appointmentViewHolder.approvedBtn.setClickable(false);
+                                                                appointmentViewHolder.approvedBtn.setAlpha(0.0f);
+                                                                appointmentViewHolder.deleteBtn.setEnabled(false);
+                                                                appointmentViewHolder.deleteBtn.setClickable(false);
+                                                                appointmentViewHolder.deleteBtn.setAlpha(0.0f);
+                                                            }
+                                                            getIdRef.updateChildren(updateAppointment).addOnCompleteListener(new OnCompleteListener() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        Toast.makeText(getActivity(), "Antrian Cek Laboratorium Terupdate", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+                                                    builder.show();
                                                 }
                                             });
 
@@ -203,13 +221,35 @@ public class CRUDAppointmentFragment extends Fragment {
                                                 appointmentViewHolder.typeHolder.setText("Laboratorium");
                                             }
 
-                                            if (retrieveStatus.equalsIgnoreCase("diproses")) {
+                                            if (retrieveStatus.equalsIgnoreCase("diproses") ) {
                                                 appointmentViewHolder.approvedBtn.setBackgroundColor(Color.YELLOW);
+                                                appointmentViewHolder.nama.setTextColor(Color.GRAY);
+                                                appointmentViewHolder.type.setTextColor(Color.GRAY);
+                                                appointmentViewHolder.tanggal.setTextColor(Color.GRAY);
+                                                appointmentViewHolder.status.setTextColor(Color.GRAY);
+                                                if(retrieveType.equalsIgnoreCase("lab")) {
+                                                    appointmentViewHolder.approvedBtn.setEnabled(true);
+                                                    appointmentViewHolder.approvedBtn.setVisibility(View.VISIBLE);
+                                                    appointmentViewHolder.approvedBtn.setClickable(true);
+                                                    appointmentViewHolder.deleteBtn.setEnabled(true);
+                                                    appointmentViewHolder.deleteBtn.setClickable(true);
+                                                    appointmentViewHolder.deleteBtn.setAlpha(1.0f);
+                                                    appointmentViewHolder.approvedBtn.setAlpha(1.0f);
+                                                    appointmentViewHolder.deleteBtn.setVisibility(View.VISIBLE);
+                                                }else{
+                                                    appointmentViewHolder.approvedBtn.setEnabled(false);
+                                                    appointmentViewHolder.approvedBtn.setClickable(false);
+                                                    appointmentViewHolder.deleteBtn.setEnabled(false);
+                                                    appointmentViewHolder.deleteBtn.setClickable(false);
+                                                    appointmentViewHolder.deleteBtn.setAlpha(0.0f);
+                                                    appointmentViewHolder.approvedBtn.setAlpha(0.0f);
+                                                }
 
                                             } else if (retrieveStatus.equalsIgnoreCase("diterima")) {
                                                 appointmentViewHolder.approvedBtn.setBackgroundColor(Color.parseColor("#10ad09"));
                                                 appointmentViewHolder.approvedBtn.setEnabled(false);
                                                 appointmentViewHolder.approvedBtn.setClickable(false);
+                                                appointmentViewHolder.approvedBtn.setAlpha(0.0f);
                                                 appointmentViewHolder.deleteBtn.setEnabled(false);
                                                 appointmentViewHolder.deleteBtn.setClickable(false);
                                                 appointmentViewHolder.deleteBtn.setAlpha(0.0f);

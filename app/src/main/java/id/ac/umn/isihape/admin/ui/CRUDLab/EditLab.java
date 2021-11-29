@@ -56,27 +56,28 @@ public class EditLab extends AppCompatActivity {
                 labMap.put("nama", nama);
                 labMap.put("deskripsi", deskripsi);
                 labMap.put("harga", harga);
+                if(nama.isEmpty() || harga.isEmpty() || deskripsi.isEmpty()){
+                    Toast.makeText(EditLab.this, "Semua field haris diisi", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    RootRef.child(id).updateChildren(labMap);
+                    Toast.makeText(EditLab.this, "Lab berhasil diedit", Toast.LENGTH_SHORT).show();
+                    SendtoCRUDLab();
+                }
 
-                RootRef.child(id).updateChildren(labMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(EditLab.this, "Lab berhasil diedit", Toast.LENGTH_SHORT).show();
-                            SendtoCRUDLab();
-
-                        } else {
-                            String message = task.getException().toString();
-                            Toast.makeText(EditLab.this, "Error: " + message, Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
 
             }
         });
 
     }
     private void SendtoCRUDLab() {
-        finish();
+        try{
+            Log.d("keluar","keluar activity");
+            finish();
+        }
+        catch (Exception e){
+            Toast.makeText(EditLab.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
 
     }
     public void initializeField(){

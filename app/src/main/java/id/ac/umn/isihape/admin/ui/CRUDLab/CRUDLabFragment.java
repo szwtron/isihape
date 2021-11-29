@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +44,7 @@ public class CRUDLabFragment extends Fragment {
 
 
         View root = inflater.inflate(R.layout.fragment_crudlab, container, false);
+        Log.d("keluar","masuk activity");
 
         rvLabList = (RecyclerView) root.findViewById(R.id.rvLabList);
         rvLabList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -68,7 +70,6 @@ public class CRUDLabFragment extends Fragment {
                 new FirebaseRecyclerOptions.Builder<Labs>()
                         .setQuery(labRef, Labs.class)
                         .build();
-        Log.d("asd", "masuk2");
         FirebaseRecyclerAdapter<Labs, CRUDLabFragment.LabViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Labs, CRUDLabFragment.LabViewHolder>(options) {
                     @Override
@@ -80,92 +81,77 @@ public class CRUDLabFragment extends Fragment {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                                 if(snapshot.exists()) {
-
                                     String id = getLabRef.getKey().toString();
-                                    Log.d("key", id);
+                                    String retrieveNama= snapshot.child("nama").getValue().toString();
+                                    String retrieveHarga = snapshot.child("harga").getValue().toString();
+                                    String retrieveDeksripsi = snapshot.child("deskripsi").getValue().toString();
+                                    Log.d("nama", retrieveNama);
+                                    Log.d("harga", retrieveHarga);
+                                    Log.d("deskripsi", retrieveDeksripsi);
 
-                                    DatabaseReference getIdRef = FirebaseDatabase.getInstance(
-                                            "https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app"
-                                    ).getReference().child("Lab").child(id);
-
-                                    getIdRef.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            String retrieveNama= snapshot.child("nama").getValue().toString();
-                                            String retrieveHarga = snapshot.child("harga").getValue().toString();
-                                            String retrieveDeksripsi = snapshot.child("deskripsi").getValue().toString();
-
-                                            labViewHolder.nama.setText(retrieveNama);
-                                            labViewHolder.harga.setText(retrieveHarga);
-                                            labViewHolder.deskripsi.setText(retrieveDeksripsi);
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                        }
-                                    });
-
-                                    labViewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            DatabaseReference getLabRef = getRef(labViewHolder.getLayoutPosition()).getRef();
-
-                                            getLabRef.addValueEventListener(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if(snapshot.exists()){
-                                                        String id = getLabRef.getKey().toString();
-                                                        Log.d("dsa", String.valueOf(getLabRef.child(id)));
-                                                        getLabRef.removeValue();
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                                }
-                                            });
-                                        }
-                                    });
-
-                                    labViewHolder.editBtn.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            DatabaseReference getLabRef = getRef(labViewHolder.getLayoutPosition()).getRef();
-                                            getLabRef.addValueEventListener(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if(snapshot.exists()){
-                                                        String id = getLabRef.getKey().toString();
-                                                        Log.d("id", id);
-                                                        Intent intent = new Intent(getActivity(), EditLab.class);
-                                                        String retrieveNama= snapshot.child("nama").getValue().toString();
-                                                        String retrieveHarga = snapshot.child("harga").getValue().toString();
-                                                        String retrieveDeskripsi = snapshot.child("deskripsi").getValue().toString();
-
-                                                        intent.putExtra("id",id);
-                                                        intent.putExtra("nama",retrieveNama);
-                                                        intent.putExtra("harga",retrieveHarga);
-                                                        intent.putExtra("deksripsi",retrieveDeskripsi);
-                                                        startActivity(intent);
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                                }
-                                            });
-                                        }
-                                    });
-
+                                    labViewHolder.nama.setText(retrieveNama);
+                                    labViewHolder.harga.setText(retrieveHarga);
+                                    labViewHolder.deskripsi.setText(retrieveDeksripsi);
                                 }
                             }
-
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
 
+                            }
+                        });
+
+                        labViewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                DatabaseReference getLabRef = getRef(labViewHolder.getLayoutPosition()).getRef();
+
+                                getLabRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if(snapshot.exists()){
+                                            String id = getLabRef.getKey().toString();
+                                            Log.d("dsa", String.valueOf(getLabRef.child(id)));
+                                            getLabRef.removeValue();
+                                            Log.d("berhasil", "berhasil");
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
+                        });
+
+                        labViewHolder.editBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                DatabaseReference getLabRef = getRef(labViewHolder.getLayoutPosition()).getRef();
+                                getLabRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if(snapshot.exists()){
+                                            String id = getLabRef.getKey().toString();
+                                            Log.d("id", id);
+                                            Intent intent = new Intent(getActivity(), EditLab.class);
+                                            String retrieveNama= snapshot.child("nama").getValue().toString();
+                                            String retrieveHarga = snapshot.child("harga").getValue().toString();
+                                            String retrieveDeskripsi = snapshot.child("deskripsi").getValue().toString();
+
+                                            intent.putExtra("id",id);
+                                            intent.putExtra("nama",retrieveNama);
+                                            intent.putExtra("harga",retrieveHarga);
+                                            intent.putExtra("deksripsi",retrieveDeskripsi);
+                                            startActivity(intent);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }
                         });
                     }

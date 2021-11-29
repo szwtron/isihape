@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/nav_appointments"
-        android:name="id.ac.umn.isihape.ui.appointments.AppointmentsFragment"
-        android:label="Appointments"
-        tools:layout="@layout/fragment_appointments" />
+        android:name="id.ac.umn.isihape.ui.qrcode.QRCodeFragment"
+        android:label="QR Code"
+        tools:layout="@layout/fragment_qrcode" />
 
     <fragment
         android:id="@+id/nav_doctors"
@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/nav_help"
-        android:name="id.ac.umn.isihape.ui.doctors.LabFragment"
+        android:name="id.ac.umn.isihape.ui.doctors.DoctorsFragment"
         android:label="Help"
         tools:layout="@layout/doctors_slideshow" />
 

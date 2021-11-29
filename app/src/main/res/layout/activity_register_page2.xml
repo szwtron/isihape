@@ -127,6 +127,4 @@
         android:textColor="@color/cardview_light_background"
         android:textSize="24sp" />
 
-   =
-
 </RelativeLayout>

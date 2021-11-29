@@ -7,9 +7,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,31 +28,31 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
-public class RegisterPage2 extends AppCompatActivity {
+public class RegisterDokter extends AppCompatActivity {
 
     private TextView typeUser;
     private String email, password, userType;
     private Button registerBtn;
     private FirebaseAuth mAuth;
     private DatabaseReference RootRef;
-    private EditText userName, userTelp, userNIK, userLahir, userAlamat, userEmail;
+    private EditText userName, userTelp, userNIK, userLahir, userAlamat, userEmail, userHarga, userSpesialis;
     private ProgressDialog loadingBar;
     final Calendar myCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_page2);
+        setContentView(R.layout.activity_register_dokter);
         setTitle("Register");
         mAuth = FirebaseAuth.getInstance();
         //RootRef = FirebaseDatabase.getInstance().getReference();
-        RootRef = FirebaseDatabase.getInstance("https://" + "isihape-441d5-default-rtdb" + ".asia-southeast1." + "firebasedatabase.app").getReference();
+        RootRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference();
         Intent myIntent = getIntent();
         email = myIntent.getStringExtra("email");
-        password = myIntent.getStringExtra("password");
-        userType = myIntent.getStringExtra("userType");
+        password= myIntent.getStringExtra("password");
+        userType= myIntent.getStringExtra("userType");
 
-        typeUser = (TextView) findViewById(R.id.userType);
+        typeUser= (TextView) findViewById(R.id.userType);
         typeUser.setText(userType);
         InitializeFields();
         userEmail.setText(email);
@@ -77,7 +75,7 @@ public class RegisterPage2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                new DatePickerDialog(RegisterPage2.this, date, myCalendar
+                new DatePickerDialog(RegisterDokter.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -92,23 +90,36 @@ public class RegisterPage2 extends AppCompatActivity {
     }
 
     private void CreateNewAccount() {
-        String name = userName.getText().toString();
-        String notelp = userTelp.getText().toString();
-        String nik = userNIK.getText().toString();
-        String tanggalLahir = userLahir.getText().toString();
-        String alamat = userAlamat.getText().toString();
+        String name =userName.getText().toString();
+        String notelp =userTelp.getText().toString();
+        String nik =userNIK.getText().toString();
+        String tanggalLahir =userLahir.getText().toString();
+        String alamat =userAlamat.getText().toString();
+        String harga = userHarga.getText().toString();
+        String spesialis = userSpesialis.getText().toString();
         email = userEmail.getText().toString();
-        if (TextUtils.isEmpty(name)) {
+        if(TextUtils.isEmpty(name)){
             Toast.makeText(this, "Tolong isi nama. . .", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(notelp)) {
+        }
+        else if(TextUtils.isEmpty(notelp)){
             Toast.makeText(this, "Tolong isi no telepon. . .", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(nik)) {
+        }
+        else if(TextUtils.isEmpty(nik)){
             Toast.makeText(this, "Tolong isi NIK. . .", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(tanggalLahir)) {
+        }
+        else if(TextUtils.isEmpty(tanggalLahir)){
             Toast.makeText(this, "Tolong isi tanggal lahir. . .", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(alamat)) {
+        }
+        else if(TextUtils.isEmpty(alamat)){
             Toast.makeText(this, "Tolong isi alamat. . .", Toast.LENGTH_SHORT).show();
-        } else {
+        }
+        else if(TextUtils.isEmpty(harga)){
+            Toast.makeText(this, "Tolong isi harga. . .", Toast.LENGTH_SHORT).show();
+        }
+        else if(TextUtils.isEmpty(alamat)){
+            Toast.makeText(this, "Tolong isi spesialis. . .", Toast.LENGTH_SHORT).show();
+        }
+        else{
             loadingBar.setTitle("Membuat akun");
             loadingBar.setMessage("Mohon menunggu . . .");
             loadingBar.setCanceledOnTouchOutside(true);
@@ -117,7 +128,7 @@ public class RegisterPage2 extends AppCompatActivity {
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
+                    if(task.isSuccessful()){
                         Log.d("database", RootRef.getRoot().toString());
                         String currentUserID = mAuth.getCurrentUser().getUid();
                         HashMap<String, Object> usersMap = new HashMap<>();
@@ -127,14 +138,16 @@ public class RegisterPage2 extends AppCompatActivity {
                         usersMap.put("NIK", userNIK.getText().toString());
                         usersMap.put("tanggalLahir", userLahir.getText().toString());
                         usersMap.put("alamat", userAlamat.getText().toString());
+                        usersMap.put("harga", userHarga.getText().toString());
+                        usersMap.put("spesialis", userSpesialis.getText().toString());
 
                         RootRef.child("Users").child(currentUserID).setValue(usersMap);
 
                         SendUserToMainActivity();
-                        Toast.makeText(RegisterPage2.this, "Account created successfuly", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterDokter.this, "Account created successfuly", Toast.LENGTH_SHORT).show();
                     } else {
                         String message = task.getException().toString();
-                        Toast.makeText(RegisterPage2.this, "Error: " + message, Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterDokter.this, "Error: " + message, Toast.LENGTH_LONG).show();
                     }
                     loadingBar.dismiss();
                 }
@@ -151,8 +164,10 @@ public class RegisterPage2 extends AppCompatActivity {
         userLahir = (EditText) findViewById(R.id.register_lahir);
         userAlamat = (EditText) findViewById(R.id.register_alamat);
         userEmail = (EditText) findViewById(R.id.register_email);
-        loadingBar = new ProgressDialog(this);
+        userHarga = (EditText) findViewById(R.id.register_harga);
+        userSpesialis = (EditText) findViewById(R.id.register_spesialis);
 
+        loadingBar = new ProgressDialog(this);
     }
 
     private void updateLabel() {

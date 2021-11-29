@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/nav_help"
-        android:name="id.ac.umn.isihape.ui.doctors.LabFragment"
+        android:name="id.ac.umn.isihape.ui.doctors.DoctorsFragment"
         android:label="Help"
         tools:layout="@layout/doctors_slideshow" />
 

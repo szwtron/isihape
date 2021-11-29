@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Isihape">
         <activity
+            android:name=".admin.ui.CRUDDoctors.EditDoctors"
+            android:exported="true" />
+        <activity
             android:name=".admin.ui.CRUDLab.EditLab"
             android:exported="true" />
         <activity

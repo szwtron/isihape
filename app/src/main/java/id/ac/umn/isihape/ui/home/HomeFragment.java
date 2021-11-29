@@ -219,9 +219,9 @@ public class HomeFragment extends Fragment {
                                             jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.RED);
                                         }
                                         if (snapshot.child("status").getValue().toString().equals("diterima")) {
-                                            jadwalKonsultasiViewHolder.dokter.setTextColor(Color.GREEN);
-                                            jadwalKonsultasiViewHolder.waktu.setTextColor(Color.GREEN);
-                                            jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.GREEN);
+                                            jadwalKonsultasiViewHolder.dokter.setTextColor(Color.parseColor("#10ad09"));
+                                            jadwalKonsultasiViewHolder.waktu.setTextColor(Color.parseColor("#10ad09"));
+                                            jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.parseColor("#10ad09"));
                                         }
                                     }
                                 }
@@ -270,9 +270,9 @@ public class HomeFragment extends Fragment {
                                             jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.RED);
                                         }
                                         if (snapshot.child("status").getValue().toString().equals("diterima")) {
-                                            jadwalKonsultasiViewHolder.dokter.setTextColor(Color.GREEN);
-                                            jadwalKonsultasiViewHolder.waktu.setTextColor(Color.GREEN);
-                                            jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.GREEN);
+                                            jadwalKonsultasiViewHolder.dokter.setTextColor(Color.parseColor("#10ad09"));
+                                            jadwalKonsultasiViewHolder.waktu.setTextColor(Color.parseColor("#10ad09"));
+                                            jadwalKonsultasiViewHolder.tanggal.setTextColor(Color.parseColor("#10ad09"));
                                         }
 
                                     }

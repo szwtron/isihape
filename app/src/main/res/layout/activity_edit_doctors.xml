@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".admin.ui.CRUDDoctors.EditDoctors">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/isihapeLogo"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="0dp"
+                app:srcCompat="@drawable/logo_isihape" />
+
+            <EditText
+                android:id="@+id/etNamaDokter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="Nama Lab. . ."
+                android:inputType="textPersonName"
+                android:layout_marginVertical="5dp"
+                android:layout_marginHorizontal="30dp" />
+
+            <EditText
+                android:id="@+id/etNIKDokter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="NIK. . ."
+                android:layout_marginVertical="5dp"
+                android:inputType="textPersonName"
+                android:layout_marginHorizontal="30dp"
+                android:padding="4dp" />
+
+            <EditText
+                android:id="@+id/etSpesialisDokter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="Spesialis. . ."
+                android:layout_marginVertical="5dp"
+                android:inputType="textPersonName"
+                android:layout_marginHorizontal="30dp"
+                android:padding="4dp" />
+
+            <EditText
+                android:id="@+id/etHargaDokter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Harga Dokter. . ."
+                android:layout_marginVertical="5dp"
+                android:inputType="textPersonName"
+                android:layout_marginHorizontal="30dp"
+                android:padding="4dp" />
+
+            <Button
+                android:id="@+id/editDocs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttons"
+                android:layout_marginVertical="5dp"
+                android:padding="4dp"
+                android:text="Edit Dokter"
+                android:layout_marginHorizontal="30dp"
+                android:textAllCaps="false"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

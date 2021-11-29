@@ -20,6 +20,6 @@
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="id.ac.umn.isihape.admin.ui.CRUDLab.CRUDLabFragment"
-        android:label="@string/title_notifications"
+        android:label="CRUD Lab"
         tools:layout="@layout/fragment_crudlab" />
 </navigation>

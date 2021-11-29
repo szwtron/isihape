@@ -1,14 +1,14 @@
-package id.ac.umn.isihape.ui.appointments;
+package id.ac.umn.isihape.ui.qrcode;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class AppointmentsViewModel extends ViewModel {
+public class QRCodeViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public AppointmentsViewModel() {
+    public QRCodeViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is appointments fragment");
     }

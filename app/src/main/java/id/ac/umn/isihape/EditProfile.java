@@ -265,7 +265,8 @@ public class EditProfile extends AppCompatActivity {
         //String imageFileName = "JPEG_" + timeStamp + "_";
         String imageFileName = currentUserID;
         //File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */

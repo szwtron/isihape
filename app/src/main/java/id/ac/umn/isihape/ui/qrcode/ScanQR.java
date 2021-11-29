@@ -106,7 +106,7 @@ public class ScanQR extends AppCompatActivity {
     private void requestPermission() {
         // this method is to request
         // the runtime permission.
-        int PERMISSION_REQUEST_CODE = 200;
+        int PERMISSION_REQUEST_CODE = 101;
         ActivityCompat.requestPermissions(this, new String[]{CAMERA, VIBRATE}, PERMISSION_REQUEST_CODE);
     }
 

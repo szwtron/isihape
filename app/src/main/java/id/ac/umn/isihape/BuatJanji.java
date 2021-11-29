@@ -69,7 +69,7 @@ public class BuatJanji extends AppCompatActivity {
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, day);
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String formatedDate = sdf.format(calendar.getTime());
 
                 String AM_PM;
@@ -93,6 +93,7 @@ public class BuatJanji extends AppCompatActivity {
                 janjiMap.put("type", Type);
                 janjiMap.put("idstaff", idStaff);
                 janjiMap.put("idpasien", idPasien);
+                janjiMap.put("status", "diproses");
 
                 String key = RootRef.child("Jadwal").push().getKey();
                 RootRef.child("Jadwal").child(key).setValue(janjiMap).addOnCompleteListener(new OnCompleteListener<Void>() {

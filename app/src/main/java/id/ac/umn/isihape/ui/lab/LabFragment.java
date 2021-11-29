@@ -140,7 +140,9 @@ public class LabFragment extends Fragment {
                                             String retrieveNama = snapshot.child("nama").getValue().toString();
                                             String retrieveSpesialis = snapshot.child("deskripsi").getValue().toString();
                                             String retrieveHarga = snapshot.child("harga").getValue().toString();
+                                            String retrieveId = snapshot.getKey();
 
+                                            buatJanjiIntent.putExtra("idstaff", retrieveId);
                                             buatJanjiIntent.putExtra("nama", retrieveNama);
                                             buatJanjiIntent.putExtra("spesialis", retrieveSpesialis);
                                             buatJanjiIntent.putExtra("harga", retrieveHarga);

@@ -156,17 +156,17 @@
                     app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/tambahJadwalKonsultasi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="50dp"
-                android:background="#5481f4"
-                android:text="MEMBUAT JADWAL KONSULTASI"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-                android:layout_marginHorizontal="10dp" />
+<!--            <Button-->
+<!--                android:id="@+id/tambahJadwalKonsultasi"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="50dp"-->
+<!--                android:layout_marginBottom="50dp"-->
+<!--                android:background="#5481f4"-->
+<!--                android:text="MEMBUAT JADWAL KONSULTASI"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/tableLayout"-->
+<!--                android:layout_marginHorizontal="10dp" />-->
 
 
         </LinearLayout>

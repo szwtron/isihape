@@ -29,6 +29,7 @@
                 android:layout_marginRight="17dp"
                 android:background="@drawable/inputs"
                 android:hint="Nama Dokter. . ."
+                android:enabled="false"
                 android:inputType="textPersonName"
                 android:padding="4dp" />
 
@@ -42,6 +43,7 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginRight="17dp"
                 android:background="@drawable/inputs"
+                android:enabled="false"
                 android:hint="Spesialis Dokter. . ."
                 android:inputType="textPersonName"
                 android:padding="4dp" />
@@ -55,6 +57,7 @@
                 android:layout_marginLeft="17dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginRight="17dp"
+                android:enabled="false"
                 android:background="@drawable/inputs"
                 android:hint="Harga appointment dokter. . ."
                 android:inputType="number"

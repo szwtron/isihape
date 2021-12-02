@@ -28,7 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import id.ac.umn.isihape.admin.AdminActivity;
 import id.ac.umn.isihape.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class   MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;

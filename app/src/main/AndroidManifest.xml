@@ -43,9 +43,6 @@
             android:name=".RegisterPage2"
             android:exported="true" />
         <activity
-            android:name=".TambahDokter"
-            android:exported="true" />
-        <activity
             android:name=".admin.ui.CRUDLab.TambahLab"
             android:exported="true" />
         <activity

@@ -40,7 +40,6 @@ public class LabFragment extends Fragment {
     private DatabaseReference labRef;
     private DatabaseReference getUserRef;
 
-    private FloatingActionButton btnTambahLab;
 
     private RecyclerView rvLabList;
 
@@ -59,36 +58,11 @@ public class LabFragment extends Fragment {
         currentUserID = mAuth.getCurrentUser().getUid();
         labRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Lab");
 
-        btnTambahLab = (FloatingActionButton) root.findViewById(R.id.fabTambahLab);
 
         //Check user Type
         getUserRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Users").getRef();
         Log.d("check", getUserRef.child(currentUserID).toString());
-        getUserRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String retrieveType = snapshot.child("userType").getValue().toString();
-                Log.d("check", retrieveType);
-                if(retrieveType.equalsIgnoreCase("Normal")){
-                    btnTambahLab.setEnabled(false);
-                    btnTambahLab.setClickable(false);
-                    btnTambahLab.setAlpha(0.0f);
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        btnTambahLab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent tambahLabIntent = new Intent(getActivity(), TambahLab.class);
-                startActivity(tambahLabIntent);
-            }
-        });
         return root;
     }
 

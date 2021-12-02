@@ -52,7 +52,6 @@ public class LabFragment extends Fragment {
     private StorageReference storageReference;
     private FirebaseStorage storage;
 
-    private FloatingActionButton btnTambahLab;
 
     private RecyclerView rvLabList;
 
@@ -71,7 +70,6 @@ public class LabFragment extends Fragment {
         currentUserID = mAuth.getCurrentUser().getUid();
         labRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Lab");
 
-        btnTambahLab = (FloatingActionButton) root.findViewById(R.id.fabTambahLab);
         tvNomorPasien = (TextView) root.findViewById(R.id.LabNomorUser);
         tvNamaPasien = (TextView) root.findViewById(R.id.LabNamaUser);
         fotoUser = (CircleImageView) root.findViewById(R.id.userImageLab);
@@ -92,7 +90,7 @@ public class LabFragment extends Fragment {
                 if (snapshot.child("notelp").exists()) {
                     nomorPasien = snapshot.child("notelp").getValue().toString();
                 }
-                if(snapshot.child("image").getValue() != null){
+                if (snapshot.child("image").getValue() != null) {
                     Log.d("tag", retrieveImage);
                     StorageReference httpsReference = storage.getReferenceFromUrl(retrieveImage);
                     httpsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -104,11 +102,6 @@ public class LabFragment extends Fragment {
                     });
                 }
                 Log.d("fotourl", fotoUser.toString());
-                if(retrieveType.equalsIgnoreCase("Normal")){
-                    btnTambahLab.setEnabled(false);
-                    btnTambahLab.setClickable(false);
-                    btnTambahLab.setAlpha(0.0f);
-                }
                 tvNamaPasien.setText(namaPasien);
                 tvNomorPasien.setText(nomorPasien);
             }
@@ -119,13 +112,6 @@ public class LabFragment extends Fragment {
             }
         });
 
-        btnTambahLab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent tambahLabIntent = new Intent(getActivity(), TambahLab.class);
-                startActivity(tambahLabIntent);
-            }
-        });
         return root;
     }
 
@@ -193,6 +179,21 @@ public class LabFragment extends Fragment {
 
                                     }
                                 });
+                            }
+                        });
+                        getUserRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String retrieveType = snapshot.child("userType").getValue().toString();
+
+                                if (retrieveType.equalsIgnoreCase("dokter")) {
+                                    labViewHolder.buatJanji.setVisibility(View.GONE);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
                             }
                         });
                     }

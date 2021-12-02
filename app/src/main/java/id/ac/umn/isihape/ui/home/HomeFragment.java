@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
     private DatabaseReference jadwalKonsultasiRef;
     private DatabaseReference usersRef;
 
-
+    private TextView actionDokter;
     private String currentUserID;
     public String usertype;
 
@@ -89,6 +89,10 @@ public class HomeFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
         usertype = sharedPreferences.getString("userType", "idpasien");
         Log.d("shared", usertype);
+        actionDokter = root.findViewById(R.id.actionDokter);
+        if(usertype.equalsIgnoreCase("idpasien")){
+            actionDokter.setAlpha(0.0f);
+        }
         return root;
     }
 

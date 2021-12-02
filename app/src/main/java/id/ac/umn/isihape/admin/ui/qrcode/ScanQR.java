@@ -1,4 +1,4 @@
-package id.ac.umn.isihape.ui.qrcode;
+package id.ac.umn.isihape.admin.ui.qrcode;
 
 import static android.Manifest.permission.VIBRATE;
 import static android.Manifest.permission_group.CAMERA;
@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import eu.livotov.labs.android.camview.ScannerLiveView;
@@ -37,7 +39,6 @@ public class ScanQR extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String currentUserId;
     private DatabaseReference RootRef;
-
     private String namaUser;
 
     @Override
@@ -89,8 +90,9 @@ public class ScanQR extends AppCompatActivity {
                 // qr code and the data from qr code is
                 // stored in data in string format.
                 scannedTV.setText(data);
+                String retrieveUid = data.toString();
 
-                RootRef.child("Users").child(currentUserId).addValueEventListener(new ValueEventListener() {
+                RootRef.child("Users").child(retrieveUid).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         namaUser = snapshot.child("name").getValue().toString();
@@ -102,9 +104,20 @@ public class ScanQR extends AppCompatActivity {
                     }
                 });
 
-                HashMap<String, String> antrianMap = new HashMap<>();
-                antrianMap.put("uid", currentUserId);
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdfTime = new SimpleDateFormat("h:mm a");
 
+                String formatedDate = sdf.format(calendar.getTime());
+                String time = sdfTime.format(calendar.getTime());
+
+                Log.d("test", formatedDate);
+                Log.d("test", time);
+
+                HashMap<String, String> antrianMap = new HashMap<>();
+                antrianMap.put("uid", retrieveUid);
+                antrianMap.put("waktu", time);
+                antrianMap.put("tanggal", formatedDate);
 
                 String key = RootRef.child("Antrian").push().getKey();
                 RootRef.child("Antrian").child(key).setValue(antrianMap).addOnCompleteListener(new OnCompleteListener<Void>() {

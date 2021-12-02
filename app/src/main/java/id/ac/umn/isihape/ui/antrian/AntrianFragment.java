@@ -95,12 +95,18 @@ public class AntrianFragment extends Fragment {
                                 getAntrianRef.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if(snapshot.child("uid").getValue().toString().equalsIgnoreCase(retrieveUid)){
-                                            nomorAntrian = nomorAntrianTemp;
-                                            btnAntrian.setText(String.valueOf(nomorAntrian));
+                                        if(snapshot.exists() && currentUserID.equalsIgnoreCase(retrieveUid)){
+                                            Log.d("exist", snapshot.child("uid").getValue().toString());
+                                            if(snapshot.child("uid").getValue().toString().equalsIgnoreCase(retrieveUid)){
+                                                nomorAntrian = nomorAntrianTemp;
+                                                btnAntrian.setText(String.valueOf(nomorAntrian));
+                                            } else {
+                                                nomorAntrianTemp++;
+                                            }
                                         } else {
-                                            nomorAntrianTemp++;
+                                            btnAntrian.setText("Anda belum mengantri");
                                         }
+
                                     }
 
                                     @Override

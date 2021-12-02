@@ -1,10 +1,7 @@
-package id.ac.umn.isihape.ui.antrian;
+package id.ac.umn.isihape.admin.ui.LiveAntrian;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -16,12 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,14 +34,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-
 import id.ac.umn.isihape.R;
 
-public class AntrianFragment extends Fragment {
-
+public class LiveAntrianFragment extends Fragment {
     private RecyclerView rvAntrian;
 
     private FirebaseAuth mAuth;
@@ -56,24 +44,17 @@ public class AntrianFragment extends Fragment {
     private DatabaseReference usersRef;
 
     private String currentUserID;
-    private String retrieveUid;
-    private String retrieveNama;
-    private Button btnAntrian;
     private int nomorAntrian;
     private int nmrAntrian;
-
-    private static final long[] VIBRATE_PATTERN = { 500, 500 };
-    private Vibrator mVibrator;
+    private String retrieveUid;
+    private String retrieveNama;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_antrian, container, false);
+        View root = inflater.inflate(R.layout.fragment_crud_antrian, container, false);
 
-        rvAntrian = (RecyclerView) root.findViewById(R.id.rvAntrian);
+        rvAntrian = (RecyclerView) root.findViewById(R.id.rvCRUDAntrian);
         rvAntrian.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        btnAntrian = root.findViewById(R.id.nomorAntrian);
-        mVibrator = (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
 
         //firebase init
         FirebaseApp.initializeApp(getActivity());
@@ -93,10 +74,10 @@ public class AntrianFragment extends Fragment {
                 new FirebaseRecyclerOptions.Builder<Antrian>()
                         .setQuery(antrianRef, Antrian.class)
                         .build();
-        FirebaseRecyclerAdapter<Antrian, AntrianFragment.AntrianViewHolder> adapter =
-                new FirebaseRecyclerAdapter<Antrian, AntrianFragment.AntrianViewHolder>(options) {
+        FirebaseRecyclerAdapter<Antrian, LiveAntrianFragment.LiveAntrianViewHolder> adapter =
+                new FirebaseRecyclerAdapter<Antrian, LiveAntrianFragment.LiveAntrianViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull AntrianFragment.AntrianViewHolder antrianViewHolder, int i, @NonNull Antrian antrian) {
+                    protected void onBindViewHolder(@NonNull LiveAntrianFragment.LiveAntrianViewHolder liveAntrianViewHolder, int i, @NonNull Antrian antrian) {
                         final String list_user_id = getRef(i).getKey();
                         nmrAntrian = 1;
 
@@ -108,18 +89,12 @@ public class AntrianFragment extends Fragment {
                                 if(snapshot.exists() && snapshot.child("uid").getValue().toString() != null){
                                     retrieveUid = snapshot.child("uid").getValue().toString();
 
-                                    //Check nomor antrian
-                                    if(snapshot.child("uid").getValue().toString().equalsIgnoreCase(currentUserID)){
-                                        nomorAntrian = nmrAntrian;
-                                        btnAntrian.setText(String.valueOf(nmrAntrian));
-                                    }
-
                                     usersRef.child(retrieveUid).addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             retrieveNama = snapshot.child("name").getValue().toString();
                                             Log.d("test", retrieveNama);
-                                            antrianViewHolder.nama.setText(retrieveNama);
+                                            liveAntrianViewHolder.nama.setText(retrieveNama);
                                         }
 
                                         @Override
@@ -132,41 +107,13 @@ public class AntrianFragment extends Fragment {
                                     String retrieveWaktu = snapshot.child("waktu").getValue().toString();
 
 
-                                    antrianViewHolder.tanggal.setText(retrieveTanggal);
-                                    antrianViewHolder.waktu.setText(retrieveWaktu);
-                                    antrianViewHolder.nomor.setText(String.valueOf(nmrAntrian));
-
+                                    liveAntrianViewHolder.tanggal.setText(retrieveTanggal);
+                                    liveAntrianViewHolder.waktu.setText(retrieveWaktu);
+                                    liveAntrianViewHolder.nomor.setText(String.valueOf(nmrAntrian));
                                 }
+
+
                                 nmrAntrian++;
-
-                                if(nomorAntrian == 1){
-                                    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                                    Ringtone r = RingtoneManager.getRingtone(getActivity(), notification);
-                                    r.play();
-
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                        // API 26 and above
-                                        mVibrator.vibrate(VibrationEffect.createWaveform(VIBRATE_PATTERN, 0));
-                                    } else {
-                                        // Below API 26
-                                        mVibrator.vibrate(VIBRATE_PATTERN, 0);
-                                    }
-
-                                    //Alert dialog
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                    builder.setCancelable(true);
-                                    builder.setTitle("Giliran anda telah tiba!");
-                                    builder.setMessage("Harap secepatnya pergi menuju reesepsionis!");
-
-                                    builder.setPositiveButton("Iya", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            r.stop();
-                                            mVibrator.cancel();
-                                        }
-                                    });
-                                    builder.show();
-                                }
                             }
 
                             @Override
@@ -174,13 +121,54 @@ public class AntrianFragment extends Fragment {
 
                             }
                         });
+
+                        liveAntrianViewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                builder.setCancelable(true);
+                                builder.setTitle("Hapus antrian ini?");
+                                builder.setMessage("Aksi ini tidak dapat dirubah lagi");
+                                builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.cancel();
+                                    }
+                                });
+
+                                builder.setPositiveButton("Iya", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        DatabaseReference getAntrianRef = getRef(liveAntrianViewHolder.getLayoutPosition()).getRef();
+                                        getAntrianRef.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if(snapshot.exists()){
+                                                    String id = getAntrianRef.getKey().toString();
+                                                    getAntrianRef.removeValue();
+                                                    Toast.makeText(getActivity(), "Antrian berhasil dihapus dari queue", Toast.LENGTH_LONG).show();
+                                                    notifyDataSetChanged();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+                                    }
+                                });
+                                builder.show();
+                            }
+                        });
+
                     }
 
                     @NonNull
                     @Override
-                    public AntrianFragment.AntrianViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.antrian_layout, parent, false);
-                        AntrianFragment.AntrianViewHolder holder = new AntrianFragment.AntrianViewHolder(view);
+                    public LiveAntrianFragment.LiveAntrianViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.crud_antrian_layout, parent, false);
+                        LiveAntrianFragment.LiveAntrianViewHolder holder = new LiveAntrianFragment.LiveAntrianViewHolder(view);
                         return holder;
                     }
                 };
@@ -188,16 +176,18 @@ public class AntrianFragment extends Fragment {
         adapter.startListening();
     }
 
-    public static class AntrianViewHolder extends RecyclerView.ViewHolder{
+    public static class LiveAntrianViewHolder extends RecyclerView.ViewHolder{
         TextView tanggal, nama, waktu, nomor;
+        ImageButton btnDelete;
 
-        public AntrianViewHolder(@NonNull View itemView) {
+        public LiveAntrianViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tanggal = itemView.findViewById(R.id.tvTanggalAntrian);
-            nama = itemView.findViewById(R.id.tvNamaAntrian);
-            waktu = itemView.findViewById(R.id.tvWaktuAntrian);
-            nomor = itemView.findViewById(R.id.tvNomorAntrian);
+            tanggal = itemView.findViewById(R.id.tvTanggalLiveAntrian);
+            nama = itemView.findViewById(R.id.tvNamaLiveAntrian);
+            waktu = itemView.findViewById(R.id.tvWaktuLiveAntrian);
+            nomor = itemView.findViewById(R.id.tvNomorLiveAntrian);
+            btnDelete = itemView.findViewById(R.id.btnDeleteLiveAntrian);
         }
     }
 

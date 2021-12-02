@@ -24,6 +24,12 @@
         tools:layout="@layout/fragment_crudlab" />
 
     <fragment
+        android:id="@+id/navigation_live_antrian"
+        android:name="id.ac.umn.isihape.admin.ui.LiveAntrian.LiveAntrianFragment"
+        android:label="Live Antrian"
+        tools:layout="@layout/fragment_crud_antrian" />
+
+    <fragment
         android:id="@+id/navigation_qrcode"
         android:name="id.ac.umn.isihape.admin.ui.qrcode.QRCodeFragment"
         android:label="QR Code"

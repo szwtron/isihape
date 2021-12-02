@@ -17,6 +17,11 @@
         android:title="Lab" />
 
     <item
+        android:id="@+id/navigation_live_antrian"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Live Antrian" />
+
+    <item
         android:id="@+id/navigation_qrcode"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="QR Code" />

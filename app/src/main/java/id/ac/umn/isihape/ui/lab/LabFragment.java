@@ -52,7 +52,6 @@ public class LabFragment extends Fragment {
     private StorageReference storageReference;
     private FirebaseStorage storage;
 
-    private FloatingActionButton btnTambahLab;
 
     private RecyclerView rvLabList;
 
@@ -91,7 +90,7 @@ public class LabFragment extends Fragment {
                 if (snapshot.child("notelp").exists()) {
                     nomorPasien = snapshot.child("notelp").getValue().toString();
                 }
-                if(snapshot.child("image").getValue() != null){
+                if (snapshot.child("image").getValue() != null) {
                     Log.d("tag", retrieveImage);
                     StorageReference httpsReference = storage.getReferenceFromUrl(retrieveImage);
                     httpsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -103,14 +102,15 @@ public class LabFragment extends Fragment {
                     });
                 }
                 Log.d("fotourl", fotoUser.toString());
-                if(retrieveType.equalsIgnoreCase("Normal")){
-                    btnTambahLab.setEnabled(false);
-                    btnTambahLab.setClickable(false);
-                    btnTambahLab.setAlpha(0.0f);
-                }
                 tvNamaPasien.setText(namaPasien);
                 tvNomorPasien.setText(nomorPasien);
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         return root;
     }

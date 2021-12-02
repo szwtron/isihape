@@ -82,7 +82,6 @@ public class DoctorsFragment extends Fragment {
         getUserRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String retrieveType = snapshot.child("userType").getValue().toString();
                 String namaPasien = snapshot.child("name").getValue().toString();
                 String retrieveImage = snapshot.child("image").getValue().toString();
                 String nomorPasien = "0000-0000-0000";
@@ -90,7 +89,7 @@ public class DoctorsFragment extends Fragment {
                     nomorPasien = snapshot.child("notelp").getValue().toString();
                 }
 
-                if(snapshot.child("image").getValue() != null){
+                if (snapshot.child("image").getValue() != null) {
                     Log.d("tag", retrieveImage);
                     StorageReference httpsReference = storage.getReferenceFromUrl(retrieveImage);
                     httpsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -102,16 +101,14 @@ public class DoctorsFragment extends Fragment {
                     });
                 }
                 Log.d("fotourl", fotoUser.toString());
-                if(retrieveType.equalsIgnoreCase("Normal")){
-                    btnTambahDokter.setEnabled(false);
-                    btnTambahDokter.setClickable(false);
-                    btnTambahDokter.setAlpha(0.0f);
-                }
                 tvNamaPasien.setText(namaPasien);
                 tvNomorPasien.setText(nomorPasien);
             }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-
+            }
+        });
 
         return root;
     }

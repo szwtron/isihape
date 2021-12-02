@@ -40,7 +40,7 @@
             android:text="Nama Lengkap"
             android:textSize="25sp"
             app:layout_constraintBottom_toTopOf="@id/LabNomorUser"
-            app:layout_constraintStart_toEndOf="@+id/circleImageView"
+            app:layout_constraintStart_toEndOf="@+id/userImageLab"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.581" />
 
@@ -51,7 +51,7 @@
             android:layout_marginStart="24dp"
             android:text="0812-1234-123"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/circleImageView"
+            app:layout_constraintStart_toEndOf="@+id/userImageLab"
             app:layout_constraintTop_toBottomOf="@id/LabNamaUser"
             app:layout_constraintVertical_bias="0.752" />
 

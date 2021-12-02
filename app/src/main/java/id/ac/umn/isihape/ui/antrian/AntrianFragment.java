@@ -50,6 +50,7 @@ import id.ac.umn.isihape.R;
 public class AntrianFragment extends Fragment {
 
     private RecyclerView rvAntrian;
+    private TextView text_home;
 
     private FirebaseAuth mAuth;
     private DatabaseReference antrianRef;
@@ -71,6 +72,7 @@ public class AntrianFragment extends Fragment {
 
         rvAntrian = (RecyclerView) root.findViewById(R.id.rvAntrian);
         rvAntrian.setLayoutManager(new LinearLayoutManager(getContext()));
+        text_home = root.findViewById(R.id.text_home_antrian);
 
         btnAntrian = root.findViewById(R.id.nomorAntrian);
         mVibrator = (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
@@ -120,6 +122,7 @@ public class AntrianFragment extends Fragment {
                                             retrieveNama = snapshot.child("name").getValue().toString();
                                             Log.d("test", retrieveNama);
                                             antrianViewHolder.nama.setText(retrieveNama);
+                                            text_home.setText("Selamat Datang, " + retrieveNama);
                                         }
 
                                         @Override

@@ -1,23 +1,17 @@
 package id.ac.umn.isihape.ui.doctors;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,23 +28,30 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import id.ac.umn.isihape.BuatJanji;
-import id.ac.umn.isihape.MainActivity;
 import id.ac.umn.isihape.R;
-import id.ac.umn.isihape.TambahDokter;
 import id.ac.umn.isihape.ui.home.HomeFragment;
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 
 public class DoctorsFragment extends Fragment {
 
     private DoctorsViewModel doctorsViewModel;
 
-    private FloatingActionButton btnTambahDokter;
 
     private RecyclerView rvDokterList;
+
+    private TextView tvNamaPasien, tvNomorPasien;
+    private CircleImageView fotoUser;
+    private StorageReference storageReference;
+    private FirebaseStorage storage;
 
     private FirebaseAuth mAuth;
     private String currentUserID;
@@ -65,38 +67,46 @@ public class DoctorsFragment extends Fragment {
 
         rvDokterList = (RecyclerView) root.findViewById(R.id.rvDokterList);
         rvDokterList.setLayoutManager(new LinearLayoutManager(getContext()));
-        btnTambahDokter = (FloatingActionButton) root.findViewById(R.id.fabTambahDokter);
+        tvNamaPasien = (TextView) root.findViewById(R.id.namaPasien);
+        tvNomorPasien = (TextView) root.findViewById(R.id.nomorPasien);
+        fotoUser = (CircleImageView) root.findViewById(R.id.userImage);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         doctorRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Users");
-
+        storageReference = FirebaseStorage.getInstance().getReference();
+        storage = FirebaseStorage.getInstance();
         //Check user Type
         getUserRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Users").getRef();
         Log.d("check", getUserRef.child(currentUserID).toString());
         getUserRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String retrieveType = snapshot.child("userType").getValue().toString();
-                Log.d("check", retrieveType);
-                if(retrieveType.equalsIgnoreCase("Normal")){
-                    btnTambahDokter.setEnabled(false);
-                    btnTambahDokter.setClickable(false);
-                    btnTambahDokter.setAlpha(0.0f);
+                String namaPasien = snapshot.child("name").getValue().toString();
+                String retrieveImage = snapshot.child("image").getValue().toString();
+                String nomorPasien = "0000-0000-0000";
+                if (snapshot.child("notelp").exists()) {
+                    nomorPasien = snapshot.child("notelp").getValue().toString();
                 }
-            }
 
+                if (snapshot.child("image").getValue() != null) {
+                    Log.d("tag", retrieveImage);
+                    StorageReference httpsReference = storage.getReferenceFromUrl(retrieveImage);
+                    httpsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Log.d("tag", uri.toString());
+                            Picasso.get().load(uri.toString()).transform(new CropCircleTransformation()).into(fotoUser);
+                        }
+                    });
+                }
+                Log.d("fotourl", fotoUser.toString());
+                tvNamaPasien.setText(namaPasien);
+                tvNomorPasien.setText(nomorPasien);
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-
-        btnTambahDokter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent tambahDokterIntent = new Intent(getActivity(), TambahDokter.class);
-                startActivity(tambahDokterIntent);
             }
         });
 
@@ -106,6 +116,7 @@ public class DoctorsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        storage = FirebaseStorage.getInstance();
         FirebaseRecyclerOptions<Doctors> options =
                 new FirebaseRecyclerOptions.Builder<Doctors>()
                         .setQuery(doctorRef.orderByChild("userType").equalTo("Dokter"), Doctors.class)
@@ -116,6 +127,21 @@ public class DoctorsFragment extends Fragment {
                     protected void onBindViewHolder(@NonNull DoctorsFragment.DoctorViewHolder doctorViewHolder, int i, @NonNull Doctors doctors) {
                         final String list_user_id = getRef(i).getKey();
                         DatabaseReference getDoctorsRef = getRef(i).getRef();
+                        getUserRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String retrieveType = snapshot.child("userType").getValue().toString();
+                                Log.d("check", retrieveType);
+                                if(retrieveType.equalsIgnoreCase("Dokter")){
+                                    doctorViewHolder.buatJanji.setVisibility(View.GONE);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                         getDoctorsRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -127,6 +153,21 @@ public class DoctorsFragment extends Fragment {
                                     Log.d("add", "tes1");
                                     String retrieveHarga = snapshot.child("harga").getValue().toString();
                                     String retrieveAlamat = snapshot.child("alamat").getValue().toString();
+
+                                    String retrieveImage = snapshot.child("image").getValue().toString();
+
+                                    if(snapshot.child("image").getValue() != null){
+                                        Log.d("tag", retrieveImage);
+                                        StorageReference httpsReference = storage.getReferenceFromUrl(retrieveImage);
+                                        httpsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                Log.d("tag", uri.toString());
+                                                Picasso.get().load(uri.toString()).transform(new CropCircleTransformation()).into(doctorViewHolder.fotoDokter);
+                                            }
+                                        });
+                                    }
+                                    Log.d("fotourl", fotoUser.toString());
 
                                     doctorViewHolder.nama.setText(retrieveNama);
                                     doctorViewHolder.spesialis.setText(retrieveSpesialis);
@@ -193,6 +234,7 @@ public class DoctorsFragment extends Fragment {
 
     public static class DoctorViewHolder extends RecyclerView.ViewHolder{
         TextView nama, spesialis, alamat, harga;
+        CircleImageView fotoDokter;
         Button buatJanji;
 
         public DoctorViewHolder(@NonNull View itemView) {
@@ -203,6 +245,7 @@ public class DoctorsFragment extends Fragment {
             alamat = itemView.findViewById(R.id.tvAdditionalDesc);
             harga = itemView.findViewById(R.id.tvHargaDokter);
             buatJanji = itemView.findViewById(R.id.btnBuatJanji);
+            fotoDokter = itemView.findViewById(R.id.gambarDokter);
         }
     }
 

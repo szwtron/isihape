@@ -1,16 +1,16 @@
-package id.ac.umn.isihape.ui.appointments;
+package id.ac.umn.isihape.admin.ui.CRUDAppointment;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class AppointmentsViewModel extends ViewModel {
+public class CRUDAppointmentViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public AppointmentsViewModel() {
+    public CRUDAppointmentViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is appointments fragment");
+        mText.setValue("This is home fragment");
     }
 
     public LiveData<String> getText() {

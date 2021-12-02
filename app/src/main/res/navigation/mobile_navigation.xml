@@ -12,10 +12,16 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/nav_patients"
+        android:name="id.ac.umn.isihape.ui.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_patients" />
+
+    <fragment
         android:id="@+id/nav_appointments"
-        android:name="id.ac.umn.isihape.ui.appointments.AppointmentsFragment"
-        android:label="Appointments"
-        tools:layout="@layout/fragment_appointments" />
+        android:name="id.ac.umn.isihape.ui.qrcode.QRCodeFragment"
+        android:label="QR Code"
+        tools:layout="@layout/fragment_qrcode" />
 
     <fragment
         android:id="@+id/nav_doctors"
@@ -28,12 +34,6 @@
         android:name="id.ac.umn.isihape.ui.lab.LabFragment"
         android:label="Pemeriksaan Lab"
         tools:layout="@layout/fragment_lab" />
-
-    <fragment
-        android:id="@+id/nav_patients"
-        android:name="id.ac.umn.isihape.ui.patients.PatientsFragment"
-        android:label="Patients"
-        tools:layout="@layout/fragment_patients" />
 
     <fragment
         android:id="@+id/nav_payments"

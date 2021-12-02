@@ -25,6 +25,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import id.ac.umn.isihape.admin.AdminActivity;
 import id.ac.umn.isihape.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,8 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
     private FirebaseUser currentUser;
+    private String currentUserID;
     private FirebaseAuth mAuth;
     private DatabaseReference RootRef;
+    private DatabaseReference getUserRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +47,33 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
+        currentUserID = mAuth.getCurrentUser().getUid();
         currentUser = mAuth.getCurrentUser();
         Log.d("login", "current user: " + currentUser.toString());
 
         RootRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference();
 
-          setSupportActionBar(binding.appBarMain.toolbar);
+        //Check user Type
+        getUserRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Users").getRef();
+        Log.d("check", getUserRef.child(currentUserID).toString());
+        getUserRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String retrieveType = snapshot.child("userType").getValue().toString();
+                Log.d("check", retrieveType);
+                if(retrieveType.equalsIgnoreCase("Admin")){
+                    Intent adminIntent = new Intent(MainActivity.this, AdminActivity.class);
+                    startActivity(adminIntent);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        setSupportActionBar(binding.appBarMain.toolbar);
 //        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -63,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_appointments, R.id.nav_doctors, R.id.nav_lab, R.id.nav_patients, R.id.nav_payments, R.id.nav_help, R.id.nav_logout)
+                R.id.nav_home, R.id.nav_patients, R.id.nav_appointments, R.id.nav_doctors, R.id.nav_lab, R.id.nav_payments, R.id.nav_help, R.id.nav_logout)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

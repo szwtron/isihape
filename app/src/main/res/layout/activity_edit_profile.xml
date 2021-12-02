@@ -94,6 +94,7 @@
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:enabled="false"
             android:id="@+id/tanggalLahirProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -130,6 +131,6 @@
         android:textColor="@color/cardview_light_background"
         android:textSize="24sp" />
 
-    =
+
 
 </LinearLayout>

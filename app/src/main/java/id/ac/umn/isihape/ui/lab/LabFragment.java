@@ -27,9 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import id.ac.umn.isihape.BuatJanji;
 import id.ac.umn.isihape.R;
-import id.ac.umn.isihape.TambahLab;
+import id.ac.umn.isihape.admin.ui.CRUDLab.TambahLab;
 import id.ac.umn.isihape.databinding.FragmentHomeBinding;
-import id.ac.umn.isihape.ui.lab.Labs;
 
 public class LabFragment extends Fragment {
 
@@ -117,7 +116,7 @@ public class LabFragment extends Fragment {
 
                                     labViewHolder.nama.setText(retrieveNama);
                                     labViewHolder.deskripsi.setText(retrieveDeskripsi);
-                                    labViewHolder.harga.setText(retrieveHarga);
+                                    labViewHolder.harga.setText("Rp. "+ retrieveHarga);
                                 }
                             }
 

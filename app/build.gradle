@@ -52,7 +52,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.0.2'
     implementation 'com.google.firebase:firebase-bom:29.0.0'
     //implementation 'com.google.firebase:firebase-firestore'
-    //implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.google.firebase:firebase-storage'
     implementation 'com.firebaseui:firebase-ui-database:4.3.2'
     // FirebaseUI Storage only
     implementation 'com.firebaseui:firebase-ui-storage:7.2.0'

@@ -22,9 +22,9 @@
         app:layout_constraintVertical_bias="0.001">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageView"
-            android:layout_width="76dp"
-            android:layout_height="79dp"
+            android:id="@+id/userImageLab"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@mipmap/coffin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

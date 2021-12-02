@@ -22,4 +22,10 @@
         android:name="id.ac.umn.isihape.admin.ui.CRUDLab.CRUDLabFragment"
         android:label="CRUD Labs"
         tools:layout="@layout/fragment_crudlab" />
+
+    <fragment
+        android:id="@+id/navigation_qrcode"
+        android:name="id.ac.umn.isihape.admin.ui.qrcode.QRCodeFragment"
+        android:label="QR Code"
+        tools:layout="@layout/fragment_qrcode" />
 </navigation>

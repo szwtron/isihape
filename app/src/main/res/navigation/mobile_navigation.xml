@@ -24,6 +24,12 @@
         tools:layout="@layout/fragment_qrcode" />
 
     <fragment
+        android:id="@+id/nav_antrian"
+        android:name="id.ac.umn.isihape.ui.antrian.AntrianFragment"
+        android:label="QR Code"
+        tools:layout="@layout/fragment_antrian" />
+
+    <fragment
         android:id="@+id/nav_doctors"
         android:name="id.ac.umn.isihape.ui.doctors.DoctorsFragment"
         android:label="Doctors"

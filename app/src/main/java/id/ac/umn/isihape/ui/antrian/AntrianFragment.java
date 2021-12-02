@@ -1,9 +1,17 @@
 package id.ac.umn.isihape.ui.antrian;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -22,6 +31,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +43,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import id.ac.umn.isihape.R;
 
@@ -47,9 +59,12 @@ public class AntrianFragment extends Fragment {
     private String retrieveUid;
     private String retrieveNama;
     private Button btnAntrian;
-    private int nomorAntrianTemp = 1;
+    private int nomorAntrianTemp;
     private int nomorAntrian;
     private int nmrAntrian;
+
+    private static final long[] VIBRATE_PATTERN = { 500, 500 };
+    private Vibrator mVibrator;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +74,7 @@ public class AntrianFragment extends Fragment {
         rvAntrian.setLayoutManager(new LinearLayoutManager(getContext()));
 
         btnAntrian = root.findViewById(R.id.nomorAntrian);
+        mVibrator = (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
 
         //firebase init
         FirebaseApp.initializeApp(getActivity());
@@ -91,31 +107,12 @@ public class AntrianFragment extends Fragment {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 retrieveUid = snapshot.child("uid").getValue().toString();
-                                Log.d("test", retrieveUid);
 
                                 //Check nomor antrian
-                                getAntrianRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if(snapshot.exists() && currentUserID.equalsIgnoreCase(retrieveUid)){
-                                            Log.d("exist", snapshot.child("uid").getValue().toString());
-                                            if(snapshot.child("uid").getValue().toString().equalsIgnoreCase(retrieveUid)){
-                                                nomorAntrian = nomorAntrianTemp;
-                                                btnAntrian.setText(String.valueOf(nomorAntrian));
-                                            } else {
-                                                nomorAntrianTemp++;
-                                            }
-                                        } else {
-                                            btnAntrian.setText("Anda belum mengantri");
-                                        }
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
+                                if(snapshot.child("uid").getValue().toString().equalsIgnoreCase(currentUserID)){
+                                    nomorAntrian = nmrAntrian;
+                                    btnAntrian.setText(String.valueOf(nmrAntrian));
+                                }
 
                                 usersRef.child(retrieveUid).addValueEventListener(new ValueEventListener() {
                                     @Override
@@ -139,6 +136,36 @@ public class AntrianFragment extends Fragment {
                                 antrianViewHolder.waktu.setText(retrieveWaktu);
                                 antrianViewHolder.nomor.setText(String.valueOf(nmrAntrian));
                                 nmrAntrian++;
+
+                                if(nomorAntrian == 1){
+                                    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                    Ringtone r = RingtoneManager.getRingtone(getActivity(), notification);
+                                    r.play();
+
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        // API 26 and above
+                                        mVibrator.vibrate(VibrationEffect.createWaveform(VIBRATE_PATTERN, 0));
+                                    } else {
+                                        // Below API 26
+                                        mVibrator.vibrate(VIBRATE_PATTERN, 0);
+                                    }
+
+                                    //Alert dialog
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                    builder.setCancelable(true);
+                                    builder.setTitle("Giliran anda telah tiba!");
+                                    builder.setMessage("Harap secepatnya pergi menuju reesepsionis!");
+
+                                    builder.setPositiveButton("Iya", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            r.stop();
+                                            mVibrator.cancel();
+                                        }
+                                    });
+                                    builder.show();
+
+                                }
                             }
 
                             @Override

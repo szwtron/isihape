@@ -49,6 +49,7 @@ public class AntrianFragment extends Fragment {
     private Button btnAntrian;
     private int nomorAntrianTemp = 1;
     private int nomorAntrian;
+    private int nmrAntrian;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -82,6 +83,7 @@ public class AntrianFragment extends Fragment {
                     @Override
                     protected void onBindViewHolder(@NonNull AntrianFragment.AntrianViewHolder antrianViewHolder, int i, @NonNull Antrian antrian) {
                         final String list_user_id = getRef(i).getKey();
+                        nmrAntrian = 1;
 
                         DatabaseReference getAntrianRef = getRef(i).getRef();
 
@@ -135,7 +137,8 @@ public class AntrianFragment extends Fragment {
 
                                 antrianViewHolder.tanggal.setText(retrieveTanggal);
                                 antrianViewHolder.waktu.setText(retrieveWaktu);
-
+                                antrianViewHolder.nomor.setText(String.valueOf(nmrAntrian));
+                                nmrAntrian++;
                             }
 
                             @Override
@@ -158,7 +161,7 @@ public class AntrianFragment extends Fragment {
     }
 
     public static class AntrianViewHolder extends RecyclerView.ViewHolder{
-        TextView tanggal, nama, waktu;
+        TextView tanggal, nama, waktu, nomor;
 
         public AntrianViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -166,6 +169,7 @@ public class AntrianFragment extends Fragment {
             tanggal = itemView.findViewById(R.id.tvTanggalAntrian);
             nama = itemView.findViewById(R.id.tvNamaAntrian);
             waktu = itemView.findViewById(R.id.tvWaktuAntrian);
+            nomor = itemView.findViewById(R.id.tvNomorAntrian);
         }
     }
 

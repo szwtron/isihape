@@ -68,6 +68,15 @@
                     android:layout_height="wrap_content"
                     android:weightSum="1">
                     <TextView
+                        android:layout_width="60dp"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="20dp"
+                        android:text="No"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
                         android:layout_width="90dp"
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="20dp"

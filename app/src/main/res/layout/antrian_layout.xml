@@ -11,6 +11,20 @@
         android:weightSum="12">
 
         <TextView
+            android:id="@+id/tvNomorAntrian"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="10dp"
+            android:text="Test1"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvDokterKonsultasi"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_weight="4"/>
+
+        <TextView
             android:id="@+id/tvTanggalAntrian"
             android:layout_width="90dp"
             android:layout_height="match_parent"

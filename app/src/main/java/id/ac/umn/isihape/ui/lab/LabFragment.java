@@ -181,6 +181,21 @@ public class LabFragment extends Fragment {
                                 });
                             }
                         });
+                        getUserRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String retrieveType = snapshot.child("userType").getValue().toString();
+
+                                if (retrieveType.equalsIgnoreCase("dokter")) {
+                                    labViewHolder.buatJanji.setVisibility(View.GONE);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
 
                     @NonNull

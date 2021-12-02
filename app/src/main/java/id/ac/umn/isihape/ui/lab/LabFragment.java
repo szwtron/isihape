@@ -1,6 +1,7 @@
 package id.ac.umn.isihape.ui.lab;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,11 +26,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import id.ac.umn.isihape.BuatJanji;
 import id.ac.umn.isihape.R;
 import id.ac.umn.isihape.admin.ui.CRUDLab.TambahLab;
 import id.ac.umn.isihape.databinding.FragmentHomeBinding;
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class LabFragment extends Fragment {
 
@@ -39,6 +46,11 @@ public class LabFragment extends Fragment {
     private String currentUserID;
     private DatabaseReference labRef;
     private DatabaseReference getUserRef;
+
+    private TextView tvNamaPasien, tvNomorPasien;
+    private CircleImageView fotoUser;
+    private StorageReference storageReference;
+    private FirebaseStorage storage;
 
     private FloatingActionButton btnTambahLab;
 
@@ -60,20 +72,45 @@ public class LabFragment extends Fragment {
         labRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Lab");
 
         btnTambahLab = (FloatingActionButton) root.findViewById(R.id.fabTambahLab);
+        tvNomorPasien = (TextView) root.findViewById(R.id.LabNomorUser);
+        tvNamaPasien = (TextView) root.findViewById(R.id.LabNamaUser);
+        fotoUser = (CircleImageView) root.findViewById(R.id.userImageLab);
 
         //Check user Type
         getUserRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Users").getRef();
         Log.d("check", getUserRef.child(currentUserID).toString());
+        storageReference = FirebaseStorage.getInstance().getReference();
+        storage = FirebaseStorage.getInstance();
         getUserRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String retrieveType = snapshot.child("userType").getValue().toString();
                 Log.d("check", retrieveType);
+                String namaPasien = snapshot.child("name").getValue().toString();
+                String retrieveImage = snapshot.child("image").getValue().toString();
+                String nomorPasien = "0000-0000-0000";
+                if (snapshot.child("notelp").exists()) {
+                    nomorPasien = snapshot.child("notelp").getValue().toString();
+                }
+                if(snapshot.child("image").getValue() != null){
+                    Log.d("tag", retrieveImage);
+                    StorageReference httpsReference = storage.getReferenceFromUrl(retrieveImage);
+                    httpsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Log.d("tag", uri.toString());
+                            Picasso.get().load(uri.toString()).transform(new CropCircleTransformation()).into(fotoUser);
+                        }
+                    });
+                }
+                Log.d("fotourl", fotoUser.toString());
                 if(retrieveType.equalsIgnoreCase("Normal")){
                     btnTambahLab.setEnabled(false);
                     btnTambahLab.setClickable(false);
                     btnTambahLab.setAlpha(0.0f);
                 }
+                tvNamaPasien.setText(namaPasien);
+                tvNomorPasien.setText(nomorPasien);
             }
 
             @Override

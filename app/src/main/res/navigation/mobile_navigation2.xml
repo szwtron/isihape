@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="id.ac.umn.isihape.admin.ui.CRUDAppointment.CRUDAppointmentFragment"
-        android:label="@string/title_home"
+        android:label="CRUD Appointments"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="id.ac.umn.isihape.admin.ui.CRUDDoctors.CRUDDoctorsFragment"
-        android:label="@string/title_dashboard"
+        android:label="CRUD Doctors"
         tools:layout="@layout/fragment_cruddoctors" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="id.ac.umn.isihape.admin.ui.CRUDLab.CRUDLabFragment"
-        android:label="CRUD Lab"
+        android:label="CRUD Labs"
         tools:layout="@layout/fragment_crudlab" />
 </navigation>

@@ -93,6 +93,21 @@ public class HomeFragment extends Fragment {
         if(usertype.equalsIgnoreCase("idpasien")){
             actionDokter.setAlpha(0.0f);
         }
+
+        usersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String namaPasien = snapshot.child("name").getValue().toString();
+                tvNamaHome.setText("Selamat Datang, " + namaPasien);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         return root;
     }
 
@@ -179,32 +194,6 @@ public class HomeFragment extends Fragment {
                                     }
                                 });
                                 builder.show();
-                            }
-                        });
-
-                        usersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                String namaPasien = snapshot.child("name").getValue().toString();
-                                if (snapshot.exists()) {
-                                    // usertype = snapshot.child("userType").getValue().toString();
-//                                    Log.d("usertype", usertype);
-
-                                    if(usertype.equalsIgnoreCase("idpasien")){
-                                        jadwalKonsultasiViewHolder.approveBtn.setEnabled(false);
-                                        jadwalKonsultasiViewHolder.approveBtn.setClickable(false);
-                                        jadwalKonsultasiViewHolder.approveBtn.setAlpha(0.0f);
-                                        jadwalKonsultasiViewHolder.deleteBtn.setEnabled(false);
-                                        jadwalKonsultasiViewHolder.deleteBtn.setClickable(false);
-                                        jadwalKonsultasiViewHolder.deleteBtn.setAlpha(0.0f);
-                                    }
-                                }
-                                tvNamaHome.setText("Selamat Datang, " + namaPasien);
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
                             }
                         });
 

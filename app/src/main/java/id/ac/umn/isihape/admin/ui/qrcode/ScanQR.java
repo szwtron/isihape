@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,7 +41,12 @@ public class ScanQR extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String currentUserId;
     private DatabaseReference RootRef;
+    private DatabaseReference antrianRef;
+    private DatabaseReference usersRef;
+
     private String namaUser;
+    private String retrieveUid;
+    private boolean exist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,8 @@ public class ScanQR extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
         RootRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference();
+        antrianRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Antrian");
+        usersRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference().child("Users");
 
         // check permission method is to check that the
         // camera permission is granted by user or not.
@@ -90,7 +99,7 @@ public class ScanQR extends AppCompatActivity {
                 // qr code and the data from qr code is
                 // stored in data in string format.
                 scannedTV.setText(data);
-                String retrieveUid = data.toString();
+                retrieveUid = data.toString();
 
                 RootRef.child("Users").child(retrieveUid).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -104,31 +113,60 @@ public class ScanQR extends AppCompatActivity {
                     }
                 });
 
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                SimpleDateFormat sdfTime = new SimpleDateFormat("h:mm a");
-
-                String formatedDate = sdf.format(calendar.getTime());
-                String time = sdfTime.format(calendar.getTime());
-
-                Log.d("test", formatedDate);
-                Log.d("test", time);
-
-                HashMap<String, String> antrianMap = new HashMap<>();
-                antrianMap.put("uid", retrieveUid);
-                antrianMap.put("waktu", time);
-                antrianMap.put("tanggal", formatedDate);
-
-                String key = RootRef.child("Antrian").push().getKey();
-                RootRef.child("Antrian").child(key).setValue(antrianMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                antrianRef.addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(ScanQR.this, "Antrian " + namaUser + " dengan UID: " + currentUserId + " berhasil ditambahkan ke daftar antrian", Toast.LENGTH_LONG).show();
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists() && snapshot.hasChild("uid")){
+                            if(retrieveUid == snapshot.child("uid").getValue().toString()){
+                                exist = true;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
                     }
                 });
-                //ID User
-                //Current date & current time
-                //
+
+                if(exist = false){
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat sdfTime = new SimpleDateFormat("h:mm a");
+
+                    String formatedDate = sdf.format(calendar.getTime());
+                    String time = sdfTime.format(calendar.getTime());
+
+                    Log.d("test", formatedDate);
+                    Log.d("test", time);
+
+                    HashMap<String, String> antrianMap = new HashMap<>();
+                    antrianMap.put("uid", retrieveUid);
+                    antrianMap.put("waktu", time);
+                    antrianMap.put("tanggal", formatedDate);
+
+                    String key = RootRef.child("Antrian").push().getKey();
+                    RootRef.child("Antrian").child(key).setValue(antrianMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(ScanQR.this, "Antrian " + namaUser + " dengan UID: " + retrieveUid + " berhasil ditambahkan ke daftar antrian", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ScanQR.this);
+                    builder.setCancelable(true);
+                    builder.setTitle("User ini sudah ada didalam antrian!");
+                    builder.setMessage("User ID: " + retrieveUid);
+                    builder.setPositiveButton("Baiklah", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    builder.show();
+                }
+
+
             }
         });
     }

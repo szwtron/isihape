@@ -82,14 +82,16 @@ public class DoctorsFragment extends Fragment {
         getUserRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 String namaPasien = snapshot.child("name").getValue().toString();
-                String retrieveImage = snapshot.child("image").getValue().toString();
+
                 String nomorPasien = "0000-0000-0000";
                 if (snapshot.child("notelp").exists()) {
                     nomorPasien = snapshot.child("notelp").getValue().toString();
                 }
 
                 if (snapshot.child("image").getValue() != null) {
+                    String retrieveImage = snapshot.child("image").getValue().toString();
                     Log.d("tag", retrieveImage);
                     StorageReference httpsReference = storage.getReferenceFromUrl(retrieveImage);
                     httpsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

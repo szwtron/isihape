@@ -60,7 +60,7 @@ public class AntrianFragment extends Fragment {
     private String retrieveUid;
     private String retrieveNama;
     private Button btnAntrian;
-    private int nomorAntrian;
+    private int nomorAntrian = 0;
     private int nmrAntrian;
 
     private static final long[] VIBRATE_PATTERN = { 500, 500 };
@@ -113,7 +113,12 @@ public class AntrianFragment extends Fragment {
                                     //Check nomor antrian
                                     if(snapshot.child("uid").getValue().toString().equalsIgnoreCase(currentUserID)){
                                         nomorAntrian = nmrAntrian;
-                                        btnAntrian.setText(String.valueOf(nmrAntrian));
+                                    }
+
+                                    if(nomorAntrian == 0){
+                                        btnAntrian.setText("Anda belum mengantri");
+                                    } else {
+                                        btnAntrian.setText(String.valueOf(nomorAntrian));
                                     }
 
                                     usersRef.child(retrieveUid).addValueEventListener(new ValueEventListener() {

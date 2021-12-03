@@ -43,9 +43,9 @@
 
     <fragment
         android:id="@+id/nav_help"
-        android:name="id.ac.umn.isihape.ui.doctors.DoctorsFragment"
+        android:name="id.ac.umn.isihape.ui.help.HelpFragment"
         android:label="Help"
-        tools:layout="@layout/doctors_slideshow" />
+        tools:layout="@layout/help" />
 
     <fragment
         android:id="@+id/nav_logout"

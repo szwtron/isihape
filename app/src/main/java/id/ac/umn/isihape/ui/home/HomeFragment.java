@@ -93,6 +93,21 @@ public class HomeFragment extends Fragment {
         if(usertype.equalsIgnoreCase("idpasien")){
             actionDokter.setAlpha(0.0f);
         }
+
+        usersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String namaPasien = snapshot.child("name").getValue().toString();
+                tvNamaHome.setText("Selamat Datang, " + namaPasien);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         return root;
     }
 

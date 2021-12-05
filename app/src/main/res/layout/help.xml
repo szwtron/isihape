@@ -87,9 +87,11 @@
                         android:text="christian.richard@student.umn.ac.id"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintBottom_toTopOf="@id/tvAdditionalDesc1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/gambarProfile1"
                         app:layout_constraintTop_toBottomOf="@+id/tvDesc1"
-                        app:layout_constraintVertical_bias="0.45" />
+                        app:layout_constraintVertical_bias="0.13" />
 
                     <TextView
                         android:id="@+id/tvAdditionalDesc1"
@@ -99,9 +101,11 @@
                         android:gravity="start"
                         android:text="https://github.com/haneure"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/gambarProfile1"
                         app:layout_constraintTop_toBottomOf="@id/tvDesc1"
-                        app:layout_constraintVertical_bias="0.53" />
+                        app:layout_constraintVertical_bias="0.452" />
 
                     <TextView
                         android:id="@+id/tvAdditionalDesc11"
@@ -111,9 +115,11 @@
                         android:gravity="start"
                         android:text="www.linkedin.com/in/haneure"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/gambarProfile1"
                         app:layout_constraintTop_toBottomOf="@id/tvAdditionalDesc1"
-                        app:layout_constraintVertical_bias="0.347" />
+                        app:layout_constraintVertical_bias="0.285" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/gambarProfile1"
@@ -155,7 +161,7 @@
                         android:id="@+id/tvNama2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dr.Stone"
+                        android:text="Evan"
                         app:flow_horizontalAlign="start"
                         app:layout_constraintBottom_toTopOf="@id/tvDesc2"
                         app:layout_constraintHorizontal_bias="0.048"
@@ -167,7 +173,7 @@
                         android:id="@+id/tvDesc2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ophythomologist"
+                        android:text="00000035947"
                         app:flow_horizontalAlign="start"
                         app:layout_constraintHorizontal_bias="0.048"
                         app:layout_constraintStart_toStartOf="parent"
@@ -179,8 +185,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="Description"
-                        app:layout_constraintBottom_toTopOf="@id/tvAdditionalDesc2"
+                        android:layout_marginTop="4dp"
+                        android:text="evan2@student.umn.ac.id"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/gambarProfile2"
                         app:layout_constraintTop_toBottomOf="@+id/tvDesc2" />
 
@@ -190,17 +198,32 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:gravity="start"
-                        android:text="Ophythomologist"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="https://github.com/evan00144"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/gambarProfile2"
                         app:layout_constraintTop_toBottomOf="@id/tvDescs2"
-                        app:layout_constraintVertical_bias="0.347" />
+                        app:layout_constraintVertical_bias="0.034" />
+
+                    <TextView
+                        android:id="@+id/tvAdditionalDesc22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:gravity="start"
+                        android:text="www.linkedin.com"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/gambarProfile2"
+                        app:layout_constraintTop_toBottomOf="@id/tvAdditionalDesc2"
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/gambarProfile2"
                         android:layout_width="57dp"
                         android:layout_height="56dp"
-                        android:src="@mipmap/coffin"
+                        android:src="@drawable/evan"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintHorizontal_bias="0.049"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -213,15 +236,12 @@
 
             <LinearLayout android:layout_width="match_parent"
                 android:layout_height="120dp"
-                xmlns:tools="http://schemas.android.com/tools"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                tools:layout_editor_absoluteY="1dp"
-                xmlns:android="http://schemas.android.com/apk/res/android">
+                tools:layout_editor_absoluteY="1dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -238,9 +258,8 @@
                         android:id="@+id/tvNama3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dr.Stone"
+                        android:text="Julius Cannavaro Harland"
                         app:flow_horizontalAlign="start"
-                        app:layout_constraintBottom_toTopOf="@id/tvDesc3"
                         app:layout_constraintHorizontal_bias="0.048"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -250,7 +269,7 @@
                         android:id="@+id/tvDesc3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ophythomologist"
+                        android:text="00000036395"
                         app:layout_constraintHorizontal_bias="0.048"
                         app:flow_horizontalAlign="start"
                         app:layout_constraintStart_toStartOf="parent"
@@ -262,8 +281,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="Description"
-                        app:layout_constraintBottom_toTopOf="@id/tvAdditionalDesc3"
+                        android:layout_marginTop="4dp"
+                        android:text="julius.cannavaro@student.umn.ac.id"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/gambarProfile3"
                         app:layout_constraintTop_toBottomOf="@+id/tvDesc3" />
 
@@ -273,17 +294,31 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:gravity="start"
-                        android:text="Ophythomologist"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="https://github.com/juliushoho"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/gambarProfile3"
-                        app:layout_constraintTop_toBottomOf="@id/tvDescs3"
-                        app:layout_constraintVertical_bias="0.347" />
+                        app:layout_constraintTop_toBottomOf="@id/tvDescs3" />
+
+                    <TextView
+                        android:id="@+id/tvAdditionalDesc33"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:gravity="start"
+                        android:text="www.linkedin.com"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/gambarProfile3"
+                        app:layout_constraintTop_toBottomOf="@id/tvAdditionalDesc3"
+                        app:layout_constraintVertical_bias="0.7" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/gambarProfile3"
                         android:layout_width="57dp"
                         android:layout_height="56dp"
-                        android:src="@mipmap/coffin"
+                        android:src="@drawable/julius"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintHorizontal_bias="0.049"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -297,15 +332,108 @@
 
             <LinearLayout android:layout_width="match_parent"
                 android:layout_height="120dp"
-                xmlns:tools="http://schemas.android.com/tools"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                tools:layout_editor_absoluteY="1dp"
-                xmlns:android="http://schemas.android.com/apk/res/android">
+                tools:layout_editor_absoluteY="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape"
+                    android:backgroundTint="#ffffff"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.555"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <TextView
+                        android:id="@+id/tvNamaStainley"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Stainley Suryadinata Winoto"
+                        app:flow_horizontalAlign="start"
+                        app:layout_constraintHorizontal_bias="0.048"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tvDescStainley"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00000036396"
+                        app:layout_constraintHorizontal_bias="0.048"
+                        app:flow_horizontalAlign="start"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvNamaStainley"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tvDescsStainley"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="8dp"
+                        android:text="stainley.suryadinata@student.umn.ac.id"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/gambarProfileStainley"
+                        app:layout_constraintTop_toBottomOf="@+id/tvDescStainley" />
+
+                    <TextView
+                        android:id="@+id/tvAdditionalDescStainley"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:gravity="start"
+                        android:text="https://github.com/szwtron"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/gambarProfileStainley"
+                        app:layout_constraintTop_toBottomOf="@id/tvDescsStainley" />
+
+                    <TextView
+                        android:id="@+id/tvAdditionalDescStainley2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:gravity="start"
+                        android:text="https://www.linkedin.com/in/stainleysw"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/gambarProfileStainley"
+                        app:layout_constraintTop_toBottomOf="@id/tvAdditionalDescStainley"
+                        app:layout_constraintVertical_bias="0.7" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/gambarProfileStainley"
+                        android:layout_width="57dp"
+                        android:layout_height="56dp"
+                        android:src="@drawable/stainley"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0.049"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvDescStainley"
+                        app:layout_constraintVertical_bias="1.0">
+
+                    </de.hdodenhof.circleimageview.CircleImageView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                tools:layout_editor_absoluteY="1dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -322,9 +450,8 @@
                         android:id="@+id/tvNama4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dr.Stone"
+                        android:text="Tania Irena Gunawan"
                         app:flow_horizontalAlign="start"
-                        app:layout_constraintBottom_toTopOf="@id/tvDesc4"
                         app:layout_constraintHorizontal_bias="0.048"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -334,7 +461,7 @@
                         android:id="@+id/tvDesc4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ophythomologist"
+                        android:text="00000035961"
                         app:layout_constraintHorizontal_bias="0.048"
                         app:flow_horizontalAlign="start"
                         app:layout_constraintStart_toStartOf="parent"
@@ -346,8 +473,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="Description"
-                        app:layout_constraintBottom_toTopOf="@id/tvAdditionalDesc4"
+                        android:layout_marginTop="4dp"
+                        android:text="tania.irena@student.umn.ac.id"
                         app:layout_constraintStart_toEndOf="@+id/gambarProfile4"
                         app:layout_constraintTop_toBottomOf="@+id/tvDesc4" />
 
@@ -357,17 +484,31 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:gravity="start"
-                        android:text="Ophythomologist"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="https://github.com/tanikohiranuma"
                         app:layout_constraintStart_toEndOf="@+id/gambarProfile4"
                         app:layout_constraintTop_toBottomOf="@id/tvDescs4"
-                        app:layout_constraintVertical_bias="0.347" />
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tvAdditionalDesc44"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:gravity="start"
+                        android:text="https://www.https://www.linkedin.com/in/tania-irena-gunawan-211a09226/"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/gambarProfile4"
+                        app:layout_constraintTop_toBottomOf="@id/tvAdditionalDesc4"
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/gambarProfile4"
                         android:layout_width="57dp"
                         android:layout_height="56dp"
-                        android:src="@mipmap/coffin"
+                        android:src="@drawable/tania"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintHorizontal_bias="0.049"
                         app:layout_constraintLeft_toLeftOf="parent"

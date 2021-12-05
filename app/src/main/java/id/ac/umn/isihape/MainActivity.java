@@ -28,7 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import id.ac.umn.isihape.admin.AdminActivity;
 import id.ac.umn.isihape.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class   MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
@@ -87,11 +87,13 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_patients, R.id.nav_appointments, R.id.nav_doctors, R.id.nav_lab, R.id.nav_payments, R.id.nav_help, R.id.nav_logout)
+                R.id.nav_home, R.id.nav_patients, R.id.nav_appointments, R.id.nav_doctors, R.id.nav_lab, R.id.nav_help, R.id.nav_logout)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+
+
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 

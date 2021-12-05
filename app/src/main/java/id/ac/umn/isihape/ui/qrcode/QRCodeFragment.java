@@ -20,6 +20,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.WriterException;
 
 import androidmads.library.qrgenearator.QRGContents;
@@ -28,14 +33,16 @@ import id.ac.umn.isihape.R;
 
 public class QRCodeFragment extends Fragment {
 
-    private QRCodeViewModel appointmentsViewModel;
+    private id.ac.umn.isihape.ui.qrcode.QRCodeViewModel appointmentsViewModel;
     private FirebaseAuth mAuth;
+    private DatabaseReference getUserRef;
+
     private String currentUserID;
     Bitmap bitmap;
     QRGEncoder qrgEncoder;
 
     private ImageView qrCodeImage;
-    private Button btnScanQR;
+    private Button btnScan;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +55,11 @@ public class QRCodeFragment extends Fragment {
         currentUserID = mAuth.getCurrentUser().getUid();
 
         qrCodeImage = root.findViewById(R.id.qrCodeImage);
+        btnScan = root.findViewById(R.id.btnScanQR);
+
+        btnScan.setEnabled(false);
+        btnScan.setClickable(false);
+        btnScan.setAlpha(0.0f);
 
         WindowManager manager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
@@ -80,16 +92,6 @@ public class QRCodeFragment extends Fragment {
             // exception handling.
             Log.e("Tag", e.toString());
         }
-
-        btnScanQR = root.findViewById(R.id.btnScanQR);
-
-        btnScanQR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent scanIntent = new Intent(getActivity(), ScanQR.class);
-                startActivity(scanIntent);
-            }
-        });
 
         return root;
     }

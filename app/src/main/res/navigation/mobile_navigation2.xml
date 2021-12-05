@@ -8,18 +8,30 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="id.ac.umn.isihape.admin.ui.CRUDAppointment.CRUDAppointmentFragment"
-        android:label="@string/title_home"
+        android:label="CRUD Appointments"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="id.ac.umn.isihape.admin.ui.CRUDDoctors.CRUDDoctorsFragment"
-        android:label="@string/title_dashboard"
+        android:label="CRUD Doctors"
         tools:layout="@layout/fragment_cruddoctors" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="id.ac.umn.isihape.admin.ui.CRUDLab.CRUDLabFragment"
-        android:label="CRUD Lab"
+        android:label="CRUD Labs"
         tools:layout="@layout/fragment_crudlab" />
+
+    <fragment
+        android:id="@+id/navigation_live_antrian"
+        android:name="id.ac.umn.isihape.admin.ui.LiveAntrian.LiveAntrianFragment"
+        android:label="Live Antrian"
+        tools:layout="@layout/fragment_crud_antrian" />
+
+    <fragment
+        android:id="@+id/navigation_qrcode"
+        android:name="id.ac.umn.isihape.admin.ui.qrcode.QRCodeFragment"
+        android:label="QR Code"
+        tools:layout="@layout/fragment_qrcode" />
 </navigation>

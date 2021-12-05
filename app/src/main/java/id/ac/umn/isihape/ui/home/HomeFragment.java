@@ -42,6 +42,7 @@ import id.ac.umn.isihape.TambahJadwalKonsultasi;
 public class HomeFragment extends Fragment {
 
     private RecyclerView rvJadwalKonsultasi;
+    private TextView tvNamaHome;
 
     //edit
     //private Button btnTambahJadwal;
@@ -51,7 +52,7 @@ public class HomeFragment extends Fragment {
     private DatabaseReference jadwalKonsultasiRef;
     private DatabaseReference usersRef;
 
-
+    private TextView actionDokter;
     private String currentUserID;
     public String usertype;
 
@@ -61,6 +62,7 @@ public class HomeFragment extends Fragment {
 
         rvJadwalKonsultasi = (RecyclerView) root.findViewById(R.id.rvJadwalKonsultasi);
         rvJadwalKonsultasi.setLayoutManager(new LinearLayoutManager(getContext()));
+        tvNamaHome = (TextView) root.findViewById(R.id.text_home);
 
         //firebase init
         FirebaseApp.initializeApp(getActivity());
@@ -87,6 +89,25 @@ public class HomeFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
         usertype = sharedPreferences.getString("userType", "idpasien");
         Log.d("shared", usertype);
+        actionDokter = root.findViewById(R.id.actionDokter);
+        if(usertype.equalsIgnoreCase("idpasien")){
+            actionDokter.setAlpha(0.0f);
+        }
+
+        usersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String namaPasien = snapshot.child("name").getValue().toString();
+                tvNamaHome.setText("Selamat Datang, " + namaPasien);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         return root;
     }
 
@@ -179,6 +200,7 @@ public class HomeFragment extends Fragment {
                         usersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String namaPasien = snapshot.child("name").getValue().toString();
                                 if (snapshot.exists()) {
                                     // usertype = snapshot.child("userType").getValue().toString();
 //                                    Log.d("usertype", usertype);
@@ -192,6 +214,7 @@ public class HomeFragment extends Fragment {
                                         jadwalKonsultasiViewHolder.deleteBtn.setAlpha(0.0f);
                                     }
                                 }
+                                tvNamaHome.setText("Selamat Datang, " + namaPasien);
                             }
 
                             @Override

@@ -3,14 +3,27 @@ package id.ac.umn.isihape.ui.qrcode;
 import static android.Manifest.permission.VIBRATE;
 import static android.Manifest.permission_group.CAMERA;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 import eu.livotov.labs.android.camview.ScannerLiveView;
 import eu.livotov.labs.android.camview.scanner.decoder.zxing.ZXDecoder;
@@ -21,10 +34,20 @@ public class ScanQR extends AppCompatActivity {
     private ScannerLiveView camera;
     private TextView scannedTV;
 
+    private FirebaseAuth mAuth;
+    private String currentUserId;
+    private DatabaseReference RootRef;
+
+    private String namaUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_qr);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUserId = mAuth.getCurrentUser().getUid();
+        RootRef = FirebaseDatabase.getInstance("https://"+"isihape-441d5-default-rtdb"+".asia-southeast1."+"firebasedatabase.app").getReference();
 
         // check permission method is to check that the
         // camera permission is granted by user or not.
@@ -66,6 +89,30 @@ public class ScanQR extends AppCompatActivity {
                 // qr code and the data from qr code is
                 // stored in data in string format.
                 scannedTV.setText(data);
+
+                RootRef.child("Users").child(currentUserId).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        namaUser = snapshot.child("name").getValue().toString();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                HashMap<String, String> antrianMap = new HashMap<>();
+                antrianMap.put("uid", currentUserId);
+
+
+                String key = RootRef.child("Antrian").push().getKey();
+                RootRef.child("Antrian").child(key).setValue(antrianMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(ScanQR.this, "Antrian " + namaUser + " dengan UID: " + currentUserId + " berhasil ditambahkan ke daftar antrian", Toast.LENGTH_LONG).show();
+                    }
+                });
                 //ID User
                 //Current date & current time
                 //

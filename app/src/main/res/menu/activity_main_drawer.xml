@@ -14,28 +14,28 @@
             android:title="Profile" />
         <item
             android:id="@+id/nav_appointments"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/qrcode"
             android:title="QR Code" />
         <item
+            android:id="@+id/nav_antrian"
+            android:icon="@drawable/queue"
+            android:title="Antrian" />
+        <item
             android:id="@+id/nav_doctors"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/stethoscope"
             android:title="Doctors" />
         <item
             android:id="@+id/nav_lab"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/flask"
             android:title="Lab" />
 
         <item
-            android:id="@+id/nav_payments"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Payments" />
-        <item
             android:id="@+id/nav_help"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/help"
             android:title="Help" />
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/logout"
             android:title="Logout" />
     </group>
 </menu>

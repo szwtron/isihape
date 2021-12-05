@@ -28,7 +28,7 @@
             android:exported="true"
             android:label="@string/title_activity_admin" />
         <activity
-            android:name=".ui.qrcode.ScanQR"
+            android:name=".admin.ui.qrcode.ScanQR"
             android:exported="true" />
         <activity
             android:name=".RegisterDokter"
@@ -41,9 +41,6 @@
             android:exported="true" />
         <activity
             android:name=".RegisterPage2"
-            android:exported="true" />
-        <activity
-            android:name=".TambahDokter"
             android:exported="true" />
         <activity
             android:name=".admin.ui.CRUDLab.TambahLab"

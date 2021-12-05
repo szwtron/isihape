@@ -6,12 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".ui.qrcode.QRCodeFragment">
 
+    <Button
+        android:id="@+id/btnScanQR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="Scan here" />
+
     <!--We are using this image
         view to display our QR code-->
     <ImageView
         android:id="@+id/qrCodeImage"
         android:layout_width="400dp"
         android:layout_height="400dp"
+        android:layout_below="@id/btnScanQR"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:contentDescription="QR Code" />
@@ -21,18 +31,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:layout_below="@id/qrCodeImage"
         android:text="This is your QR Code"/>
 
-    <Button
-        android:id="@+id/btnScanQR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="Scan here"
-        android:layout_below="@+id/tvQRCode"/>
+
 
 </RelativeLayout>
